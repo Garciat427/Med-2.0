@@ -24,7 +24,6 @@ module.exports = {
         //     "symptoms": [{"id": 1, "name":"sneeze"}, {"id": 2, "name":"cough"}],
         //     "diagnosis": [{"id": 1, "name":"flu", "accuracy": 20}, {"id": 2, "name":"cold", "accuracy": 40}]
         // }
-
         const req = {
             birthYear: request.body.type.birthYear,
             gender: request.body.type.gender,
@@ -96,7 +95,7 @@ module.exports = {
                 return (dbDiagnosisItems);
             });
 
-            // console.log(dbRecord.id);
+            console.log(dbRecord.id);
             res.json(dbRecord);
         });
     }
