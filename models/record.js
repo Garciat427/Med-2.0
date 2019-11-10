@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Record = sequelize.define("Record", {
     age: {
       type: DataTypes.INTEGER,
@@ -11,10 +11,18 @@ module.exports = function(sequelize, DataTypes) {
     city: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    latitude: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    longtitude: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
 
-  Record.associate = function(models) {
+  Record.associate = function (models) {
     Record.hasMany(models.Symptoms);
     Record.hasMany(models.Diagnosis);
   };

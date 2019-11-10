@@ -19,6 +19,6 @@ export default {
   // },
 
   getAllRecords: function () {
-    return axios.get("/api/getAllRecords");
+    return axios.get("/api/records");
   }
 };

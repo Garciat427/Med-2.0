@@ -6,6 +6,6 @@ const recordRoutes = require("./records");
 
 
 // router.use("/addRecord", bookRoutes);
-router.use("/getAllRecords", recordRoutes);
+router.use("/records", recordRoutes);
 
 module.exports = router;
