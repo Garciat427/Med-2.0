@@ -1,4 +1,5 @@
 import React from "react";
+// Team! this is component uses Bootstrap
 
 function Nav() {
   return (
