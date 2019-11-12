@@ -10,18 +10,29 @@ class Landing extends Component {
     };
     // When this component mounts, grab the book with the _id of this.props.match.params.id
     componentDidMount() {
-        API.getAllRecords()
+
+        API.getAllPrimaryDiagnosisInCityInPast4Weeks("Hamilton")
             .then(res => {
                 console.log(res.data);
-                this.setState({ results: res.data });
+                this.setState({ results_primary_diagnosis_in_city_in_past_4_weeks: res.data });
             })
             .catch(err => console.log(err));
-    }
 
+        API.getAllPrimaryDiagnosisInCityInPastWeekPercentage("Hamilton")
+            .then(res => {
+                console.log(res.data);
+                this.setState({ results_primary_diagnosis_in_city_percentage: res.data });
+            })
+            .catch(err => console.log(err));
+
+    }
     render() {
         return (
             <div>
-                {JSON.stringify(this.state.results)} 
+                {JSON.stringify(this.state.results_primary_diagnosis_in_city_in_past_4_weeks)}
+
+
+                {JSON.stringify(this.state.results_primary_diagnosis_in_city_percentage)}
             </div>
         );
     }

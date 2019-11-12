@@ -16,4 +16,9 @@ router
   .get(diagnosisController.findAll_DiagnosisInCityInPastWeeks);
 
 
+router
+  .route("/cityDiagnosisRatio/:name/weeks-back/:weeks")
+  .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
+
+
 module.exports = router;
