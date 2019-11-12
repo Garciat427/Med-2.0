@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
     accuracy: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    isPrimaryDiagnosis: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false 
     }
   });
 

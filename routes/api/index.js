@@ -2,10 +2,8 @@ const router = require("express").Router();
 const diagnosisRoutes = require("./diagnosis");
 const recordRoutes = require("./records");
 
-// Book routes
+router.use("/records", recordRoutes);
 
-
-// router.use("/addRecord", bookRoutes);
-router.use("/getAllRecords", recordRoutes);
+router.use("/diagnosis", diagnosisRoutes);
 
 module.exports = router;
