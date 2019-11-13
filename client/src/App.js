@@ -1,23 +1,31 @@
-// done by arif (+ Troy :3) 
+// done by arif
 
-// ---- Import Dependencies ----
-// React Dependencies
 import React from "react";
-
-// Component Dependencies
-import Navbar from "./components/Navbar";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Home from "./pages/home";
+import Diagnosis from "./pages/diagnosis";
+import Trends from "./pages/trends";
+import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+// import Main from "./components/Main";
+import NoMatch from "./pages/NoMatch";
 
-// Page Dependencies 
-import MainApp from "./pages/MainApp";
 
 function App() {
   return (
-    <div>
-      <Navbar /> 
-      <MainApp />
-      <Footer />
-    </div>
+    <Router>
+      <div>
+        <Nav />  
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/diagnosis" component={Diagnosis} />
+          <Route exact path="/trends" component={Trends} />
+          <Route component={NoMatch} />
+        </Switch> 
+        <Footer />
+
+      </div>
+    </Router>
   );
 }
 

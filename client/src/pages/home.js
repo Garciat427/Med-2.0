@@ -1,12 +1,16 @@
 import React, { Component } from "react";
 
+import DiagnosisBtn from "../components/DiagnosisBtn"
+import TrendsBtn from "../components/TrendsBtn"
+
 class Home extends Component {
     render (){ 
         return (
+            <body>
             <div className="container">
                 <div className="row">
                     <div className="col s8">
-                        <img src="assets/images/piechart.jpg" alt="pie chart" className= "responsive-img" />                     
+                        <img src={require ("../components/Images/piechart.jpg")} alt="pie chart" className= "responsive-img" />                      
                     </div>
                     <div className="col s4">
                         <h3>Welcome to Med 2.0</h3>
@@ -15,16 +19,14 @@ class Home extends Component {
                         </p>
                     </div>   
                 </div>
-                {/* Button Section */}
+
+
                 <div className="row">
-                    <div className = "col s8 center">
-                        <a className="waves-effect waves-light btn-large" href={"/diagnosis"}>Diagnosis</a>
-                    </div>
-                    <div className = "col s4 center">
-                        <a className="waves-effect waves-light btn-large" href={"/trends"}>Trends</a>
-                    </div>
+                    <DiagnosisBtn/>
+                    <TrendsBtn/>
                 </div>
             </div>
+            </body>
 
             )
     }
