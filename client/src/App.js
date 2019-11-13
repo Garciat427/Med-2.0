@@ -1,20 +1,29 @@
+// done by arif
+
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NoMatch from "./pages/NoMatch";
+import Home from "./pages/home";
+import Diagnosis from "./pages/diagnosis";
+import Trends from "./pages/trends";
 import Nav from "./components/Nav";
-import Landing from "./pages/Landing";
+import Footer from "./components/Footer";
+// import Main from "./components/Main";
+import NoMatch from "./pages/NoMatch";
+
 
 function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        <Nav />  
         <Switch>
-          <Route exact path="/" component={Landing} />
-          {/* <Route exact path="/books" component={Books} />
-          <Route exact path="/books/:id" component={Detail} /> */}
+          <Route exact path="/" component={Home} />
+          <Route exact path="/diagnosis" component={Diagnosis} />
+          <Route exact path="/trends" component={Trends} />
           <Route component={NoMatch} />
-        </Switch>
+        </Switch> 
+        <Footer />
+
       </div>
     </Router>
   );
