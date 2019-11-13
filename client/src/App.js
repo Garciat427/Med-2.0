@@ -1,14 +1,19 @@
-// done by arif
+// done by arif (+ Troy :3) 
 
+// -------------------- Import Dependencies --------------------------------
+// React Dependencies
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+// Component Dependencies
+import Nav from "./components/Nav";
+import Footer from "./components/Footer";
+
+// Page Dependencies 
 import Home from "./pages/home";
 import Diagnosis from "./pages/diagnosis";
 import Trends from "./pages/trends";
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
-// import Main from "./components/Main";
-import NoMatch from "./pages/NoMatch";
+import ErrorPage from "./pages/ErrorPage";
 
 
 function App() {
@@ -17,10 +22,11 @@ function App() {
       <div>
         <Nav />  
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/diagnosis" component={Diagnosis} />
+          <Route exact path="/" component={Home} /> {/* Root Path - HomePage */}
+          <Route exact path="/diagnosis" component={Diagnosis} /> {/* /Diagnosis Path - Diagnosis Page */}
           <Route exact path="/trends" component={Trends} />
-          <Route component={NoMatch} />
+          {/* If No Route match - Display Error Page */}
+          <Route component={ErrorPage} />
         </Switch> 
         <Footer />
 
