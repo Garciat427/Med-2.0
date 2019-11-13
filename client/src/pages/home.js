@@ -20,7 +20,6 @@ class Home extends Component {
                     </div>   
                 </div>
 
-
                 <div className="row">
                     <DiagnosisBtn/>
                     <TrendsBtn/>

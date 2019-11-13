@@ -86,23 +86,23 @@ const DiagnosisForm1 = () => {
           location: "", // added for our select
           acceptedTerms: false // added for our checkbox
         }}
-        validationSchema={Yup.object({
-          age: Yup.string()
-            .min(1, "Must be 2 characters or less")
-            .required("Required"),
-          location: Yup.string()
-            .min(2, "Must be 20 characters or less")
-            .required("Required"),
-          acceptedTerms: Yup.boolean()
-            .required("Required")
-            .oneOf([true], "You must accept the terms and conditions."),
-          gender: Yup.string()
-            // specify the set of valid values for job type
-            // @see http://bit.ly/yup-mixed-oneOf
-            .oneOf(
-              ["male", "female", "other"],
-              "Invalid Gender Type"
-            )
+        validationSchema={
+          Yup.object({
+            age: Yup.string()
+              .min(1, "Must be 2 characters or less")
+              .required("Required"),
+            location: Yup.string()
+              .min(2, "Must be 20 characters or less")
+              .required("Required"),
+            acceptedTerms: Yup.boolean()
+              .required("Required")
+              .oneOf([true], "You must accept the terms and conditions."),
+            
+            gender: Yup.string()
+              .oneOf(
+                ["male", "female", "other"],  //Array with possible selections
+                "Invalid Gender Type"         //Error Message if string is none above
+              )
             .required("Required")
         })}
         onSubmit={(values, { setSubmitting }) => {
