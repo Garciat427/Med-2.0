@@ -15,14 +15,12 @@ router
 
 // Req 3 - Get Symptoms of Body Location
 router
-  .route("/bodySymp/:id/:gender")
+  .route("/bodySymp/:gender/:birthYear/:id")
   .get(apiMedicController.bodySymp);
 
 // Req 4 + (5 + 6) Get Symptoms based on Previous Symptom(s)
 router
-  .route("/sympSel/:id/:gender")
-  .get(apiMedicController.bodySymp);
-
-
-
+  .route("/sympSel/:gender/:birthYear/:symptoms")
+  .get(apiMedicController.sympSel);
+  
 module.exports = router;

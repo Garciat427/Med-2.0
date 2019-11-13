@@ -18,7 +18,26 @@ const headers = {
   "x-rapidapi-key": "99a794a1b2msh418e261da3bc802p188864jsn1fd4fddc6a5f"
 };
 
+const genderUrl = (birthYear, gender) => {
+  //Request Config
+  let date = new Date();
+  let age = (date.getFullYear() - birthYear)
 
+  //Setting Gender URL
+  if (gender === "male") { //Male
+    if (age >= 12) {
+      return ("man")
+    } else {
+      return ("boy")
+    }
+  } else { //Female
+    if (age >= 12) {
+      return ("woman")
+    } else {
+      return ("girl")
+    }
+  }
+}
 
 module.exports = {
   // Req 1 - Get Body Locations (General)
@@ -53,15 +72,9 @@ module.exports = {
   
   // Req 3 - Get Symptoms based on Body Location (Specific)
   bodySymp : (req, res) => {
-    //Request Config
-    reqUrl = apiMedicUrl.propSymp;
+    reqUrl = apiMedicUrl.bodySymp + "/" + req.params.id + "/" + genderUrl(req.params.gender, req.params.birthYear);
     reqConfig = {
-      params : {
-        "symptoms": "[234,11]",
-	      "gender": "male",
-	      "year_of_birth": "1984",
-        "language": "en-gb"
-      },
+      params : {"language": "en-gb"},
       headers : headers
     }
     //Axios Request
@@ -74,9 +87,14 @@ module.exports = {
   // Req 4 + (5 + 6) Get Symptoms based on Previous Symptom(s)
   sympSel : (req, res) => {
     //Request Config
-    reqUrl = apiMedicUrl.bodySymp + "/" + req.params.id + "/" + req.params.gender;
+    reqUrl = apiMedicUrl.propSymp;
     reqConfig = {
-      params : {"language": "en-gb"},
+      params : { //All Params must be String
+        "symptoms": req.params.symptoms, //Stringified Array
+	      "gender": req.params.gender, 
+	      "year_of_birth": req.params.birthYear, 
+        "language": "en-gb" 
+      },
       headers : headers
     }
     //Axios Request
