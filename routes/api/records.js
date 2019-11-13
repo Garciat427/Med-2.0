@@ -8,7 +8,7 @@ router.route("/")
 
 
 router
-  .route("/allCities/")
-  .get(recordController.getAllCities);
+  .route("/distinct-cities/")
+  .get(recordController.getDistinctCities);
 
 module.exports = router;

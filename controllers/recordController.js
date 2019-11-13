@@ -13,7 +13,7 @@ module.exports = {
             })
             .catch(err => res.status(422).json(err));
     },
-    getAllCities: (req, res) => {
+    getDistinctCities: (req, res) => {
 
         let query = `SELECT DISTINCT r.city FROM records r`
 
@@ -21,7 +21,6 @@ module.exports = {
             .query(query, { type: db.sequelize.QueryTypes.SELECT })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
-
 
     },
     create: function (request, res) {

@@ -25,6 +25,14 @@ class Landing extends Component {
             })
             .catch(err => console.log(err));
 
+
+        API.getDistinctDiagnosis()
+            .then(res => {
+                console.log(res.data);
+                this.setState({ cityList: res.data });
+            })
+            .catch(err => console.log(err));
+
     }
     render() {
         return (
@@ -33,6 +41,9 @@ class Landing extends Component {
 
 
                 {JSON.stringify(this.state.results_primary_diagnosis_in_city_percentage)}
+
+                {JSON.stringify(this.state.cityList)}
+
             </div>
         );
     }
