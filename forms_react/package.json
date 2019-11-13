@@ -1,0 +1,35 @@
+{
+  "name": "formik-v2-tutorial-final",
+  "version": "1.0.0",
+  "description": "Finished version of the Formik  v2 Tutorial",
+  "keywords": [
+    "formik-tutorial",
+    "formik"
+  ],
+  "main": "src/index.js",
+  "dependencies": {
+    "@emotion/core": "10.0.17",
+    "@emotion/styled": "10.0.17",
+    "formik": "2.0.1-rc.13",
+    "materialize-css": "^1.0.0-rc.2",
+    "react": "16.8.6",
+    "react-dom": "16.8.6",
+    "react-scripts": "3.0.1",
+    "yup": "0.27.0"
+  },
+  "devDependencies": {
+    "typescript": "3.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
