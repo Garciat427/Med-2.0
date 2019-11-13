@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
+import { Col, Row, Container } from "../components/Grid";
 // import Jumbotron from "../components/Jumbotron";
-import API from "../../utils/API";
+import API from "../utils/API";
 
 class Landing extends Component {
     state = {
@@ -25,6 +25,14 @@ class Landing extends Component {
             })
             .catch(err => console.log(err));
 
+
+        API.getDistinctDiagnosis()
+            .then(res => {
+                console.log(res.data);
+                this.setState({ cityList: res.data });
+            })
+            .catch(err => console.log(err));
+
     }
     render() {
         return (
@@ -33,6 +41,9 @@ class Landing extends Component {
 
 
                 {JSON.stringify(this.state.results_primary_diagnosis_in_city_percentage)}
+
+                {JSON.stringify(this.state.cityList)}
+
             </div>
         );
     }

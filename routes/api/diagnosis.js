@@ -21,4 +21,8 @@ router
   .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
 
 
+  router
+  .route("/distinct-diagnosis/")
+  .get(diagnosisController.getDistinctDiagnosis);
+
 module.exports = router;

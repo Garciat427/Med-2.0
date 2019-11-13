@@ -1,11 +1,26 @@
 import axios from "axios";
 
 export default {
- 
+
+
+  /**************************************************************************** */
+  /***************************  Med lookup APIs Below ***************************** */
+  /**************************************************************************** */
+
+  getDistinctDiagnosis: () => {
+    return axios.get("/api/diagnosis/distinct-diagnosis");
+
+  },
+
+  getDistinctCities: () => {
+    return axios.get("/api/records/distinct-cities");
+
+  },
+
   /**************************************************************************** */
   /***************************  Med DB APIs Below ***************************** */
   /**************************************************************************** */
- 
+
   /* SAVING: the following API can be used to save a record. The following is an example of a complicated input with multiple symptoms and multipl diagnosis
       {
         "type": {"birthYear": 1988, "gender": "male"},
@@ -58,23 +73,23 @@ export default {
     return axios.get("api/diagnosis/city/" + cityName + "/weeks-back/4/is-primary/1");
   },
 
-    /* GET ALL records raw data without diagnosis or symptoms. The following is a sample output
-    [
-      {
-        "id": 1,
-        "age": 31,
-        "gender": "M",
-        "city": "OAKVILLE",
-        "latitude": "333",
-        "longitude": "777",
-        "createdAt": "2019-11-11T05:03:18.000Z",
-        "updatedAt": "2019-11-11T05:03:18.000Z"
-      }
-    ]
-  */
- getAllRecords: function () {
-  return axios.get("/api/records");
-}
+  /* GET ALL records raw data without diagnosis or symptoms. The following is a sample output
+  [
+    {
+      "id": 1,
+      "age": 31,
+      "gender": "M",
+      "city": "OAKVILLE",
+      "latitude": "333",
+      "longitude": "777",
+      "createdAt": "2019-11-11T05:03:18.000Z",
+      "updatedAt": "2019-11-11T05:03:18.000Z"
+    }
+  ]
+*/
+  getAllRecords: function () {
+    return axios.get("/api/records");
+  }
 
 
 };
