@@ -1,7 +1,5 @@
 import React from "react";
 
-
-
 class TrendsForm extends React.Component {
 
     state = {

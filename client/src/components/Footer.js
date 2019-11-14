@@ -6,39 +6,23 @@ import React from "react";
 
 function Footer() {
   return (
-      <footer className="page-footer min-Padding blue-grey darken-4">
-            
-        <div className="footer-copyright">
-            <div className="container">
-              <p>
-                © 2019 Troy Garcia FrontEndOnFront
-                  
-                <a className="blue-grey-text text-lighten-4 right" 
-                href="https://www.instagram.com/garciat427/" target="_tab">
-                  <i className="link-Footer fab fa-instagram"></i>
-                </a>
-                <a className="blue-grey-text text-lighten-4 right" 
-                href="https://twitter.com/Garciat427" target="_tab">
-                  <i className="link-Footer fab fa-twitter"></i>
-                </a>
-                <a className="blue-grey-text text-lighten-4 right" 
-                href="mailto:tg1212@outlook.com" target="_tab">
-                  <i className="link-Footer fas fa-envelope"></i>
-                </a>
-                <a className="blue-grey-text text-lighten-4 right" 
-                href="https://www.linkedin.com/in/garciat427" target="_tab">
-                  <i className="link-Footer fab fa-linkedin"></i>
-                </a>
-                <a className="blue-grey-text text-lighten-4 right" 
-                href="https://github.com/Garciat427" target="_tab">
-                  <i className="link-Footer fab fa-github"></i>
-                </a>
-              </p>
-              
-            </div>
+    <footer className="page-footer">
+      <div className="footer-copyright">
+        <div className="container">
+          © 2019 Copyright
+       <h8 className="white-text right">The MED 2.0 Team (click on the name to visit their GitHub)</h8>
+          <ul>
+            <li><a className="grey-text text-lighten-3 right" href="https://github.com/arif2301">- Arifur Rahman </a></li>
+            <li><a className="grey-text text-lighten-3 right" href="https://github.com/lcocard">- Lawrence Cocard </a></li>
+            <li><a className="grey-text text-lighten-3 right" href="https://github.com/majedline">- Majed Atwi </a></li>
+            <li><a className="grey-text text-lighten-3 right " href="https://github.com/Garciat427">Troy Garcia </a></li>
+          </ul>
+          {/* <a className="grey-text text-lighten-4 right" href="#!">More Links</a> */}
         </div>
-      </footer>       
-   );
+      </div>
+    </footer>
+  );
 }
+
 
 export default Footer;

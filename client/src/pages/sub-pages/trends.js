@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 //import { Link } from "react-router-dom";
-import TrendsForm from "../components/TrendsForm";
-import TrendsMap from "../components/TrendsMap"
+import TrendsForm from "./Trends/TrendsForm";
+import TrendsMap from "./Trends/TrendsMap"
 
 
 class Trends extends Component {
@@ -16,8 +16,6 @@ class Trends extends Component {
                 </div>
                 
             </div>
-
-            
             )
     }
 
