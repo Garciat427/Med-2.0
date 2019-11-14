@@ -8,6 +8,16 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    getDistinctDiagnosis: (req, res) => {
+
+        let query = `select DISTINCT d.name from diagnoses d;`
+
+        db.sequelize
+            .query(query, { type: db.sequelize.QueryTypes.SELECT })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+
+    },
 
     findAll_DiagnosisInCityInPastWeeks: function (req, res) {
         const cityNameParam = req.params.name.toUpperCase();
@@ -34,7 +44,7 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    
+
     findAll_DiagnosisInCityInPastWeeksRatio: function (req, res) {
         const cityNameParam = req.params.name.toUpperCase();
         const weeksBackParam = req.params.weeks.toUpperCase();

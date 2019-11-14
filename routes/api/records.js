@@ -1,16 +1,14 @@
 const router = require("express").Router();
 const recordController = require("../../controllers/recordController");
 
-// Matches with "/api/books"
+// Matches with "/api/record/"
 router.route("/")
   .get(recordController.findAll)
   .post(recordController.create);
 
-// Matches with "/api/books/:id"
-// router
-//   .route("/:id")
-//   .get(booksController.findById)
-//   .put(booksController.update)
-//   .delete(booksController.remove);
+router
+  .route("/distinct-cities/")
+  .get(recordController.getDistinctCities);
+
 
 module.exports = router;
