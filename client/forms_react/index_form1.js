@@ -69,9 +69,3 @@ const DiagnosisForm1 = () => {
     </>
   );
 };
-function App() {
-  return <DiagnosisForm1 />;
-}
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);

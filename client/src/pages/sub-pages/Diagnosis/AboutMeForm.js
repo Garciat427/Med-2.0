@@ -1,70 +1,96 @@
-//Import Dependencies
 import React, { Component } from "react";
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 
-//Form Params and settings
-const FormParamaters = Yup.object().shape({
-    age: Yup.string()
-      .min(1, "Must be 2 characters or less")
-      .required("Required"),
-    location: Yup.string()
-      .min(2, "Must be 20 characters or less")
-      .required("Required"),
-    acceptedTerms: Yup.boolean()
-      .required("Required")
-      .oneOf([true], "You must accept the terms and conditions."),
-    gender: Yup.string()
-      .oneOf(
-        ["male", "female", "other"],  //Array with possible selections
-        "Invalid Gender Type"         //Error Message if string is none above
-      )
-      .required("Required")
-});
+class Diagnosis extends Component { 
+   constructor(props) {
+      super(props);
+      this.state = {
+         firstName: '',
+         lastName:'',
+         birthYear:'',
+         gender: ''
+      };
+      this.firstNameChange = this.firstNameChange.bind(this);
+      this.lastNameChange = this.lastNameChange.bind(this);
+      this.birthYearChange = this.birthYearChange.bind(this);
+      this.genderChange = this.genderChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-const FormInitialValues = {
-  age: "",
-  gender: "",
-  location: "", // added for our select
-  acceptedTerms: false // added for our checkbox
-};
+   //Event Handlers
 
+   //Gender Select Change
+   firstNameChange(event) {
+      this.setState({firstName: event.target.value});
+   }
 
+   //Gender Select Change
+   lastNameChange(event) {
+      this.setState({lastName: event.target.value});
+   }
+   
+   //Birth Year Change
+   birthYearChange(event) {
+      this.setState({birthYear: event.target.value});
+   }
 
-class Diagnosis extends Component {
+   //Gender Select Change
+   genderChange(event) {
+      this.setState({gender: event.target.value});
+   }
+
+   //Submit Form Event
+   handleSubmit(event) {
+      console.log(this.state.firstName)
+      event.preventDefault();
+   }
+
   render (){ 
     return (
       <div className="container">
         <div className="row">
           <div className="col s12">
             <h1>Diagnosis Form 1</h1>
-            <Formik validationSchema={FormParamaters} initialValues={FormInitialValues} onSubmit={values => {console.log(values);}}>
-              <Form>
-                <MyTextInput
-                    label="Age"
-                    name="age"
-                    type="number"
-                    placeholder="21"
-                />
-                <MyTextInput
-                    label="Location"
-                    name="location"
-                    type="text"
-                    placeholder="Toronto"
-                />
-                <MySelect label="Gender" name="gender">
-                    <option value="">Select</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                </MySelect>
-                <MyCheckbox name="acceptedTerms">
-                    I accept the terms and conditions
-                </MyCheckbox>
+            <form className="col s12" onSubmit={this.handleSubmit}>
 
-                <button type="submit">Submit</button>
-              </Form>
-            </Formik>             
+               <div className="row">
+                  
+                  <div className="input-field col s6">
+                     <input onChange={this.firstNameChange} placeholder="John" id="first_name" type="text" className="validate"></input>
+                     <label htmlFor="first_name">First Name (Optional)</label>
+                  </div>
+
+                  <div className="input-field col s6">
+                     <input onChange={this.lastNameChange} placeholder="Doe" id="last_name" type="text" className="validate"></input>
+                     <label htmlFor="last_name">Last Name (Optional)</label>
+                  </div>
+
+               </div>
+               <div className="row">
+                  
+                  <div className="input-field col s6">
+                     <input 
+                        placeholder="YYYY" 
+                        id="first_name" 
+                        type="number" 
+                        className="validate"
+                        onChange={this.birthYearChange}
+                     ></input>
+                     <label htmlFor="first_name">Year of Birth</label>
+                  </div>
+
+                  <div className="input-field col s6">
+                  <select value={this.state.gender} onChange={this.genderChange}> 
+                     <option value="male">Male</option>
+                     <option value="female">Female</option>
+                     <option value="male">Other</option>
+                  </select>
+                  <label>Gender</label>
+                  </div>
+                  <button type="submit">Submit</button>
+
+               </div>
+
+            </form>
           </div>   
         </div>
       </div>
