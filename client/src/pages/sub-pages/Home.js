@@ -13,14 +13,14 @@ class Home extends Component {
     componentDidMount() {
 
         // Call the API to load the pie chart
-        API.getAllPrimaryDiagnosisInCityInPastWeekPercentage("Hamilton")
+        API.getAllPrimaryDiagnosisInCityInPastWeekPercentage("all")
             .then(res => {
 
                 let labelsIn = [];
                 let dataIn = [];
 
                 (res.data).forEach(element => {
-                    labelsIn.push(element.name);
+                    labelsIn.push("["+element.city + "] " + element.name);
                     dataIn.push(element.percentage);
                 });
 
