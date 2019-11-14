@@ -63,7 +63,7 @@ class TrendsForm extends React.Component {
                     <label>Select Disease</label>
                 </div>
 
-            <a className="waves-effect waves-light btn col s2" onClick={this.handleFormSubmit} >Submit</a>
+            <button className="waves-effect waves-light btn col s2" onClick={this.handleFormSubmit} >Submit</button>
 
             </div>
             </div>
