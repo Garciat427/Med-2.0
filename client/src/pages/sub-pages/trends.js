@@ -8,14 +8,14 @@ import TrendsMap from "../components/TrendsMap"
 class Trends extends Component {
     render (){ 
         return (
-            <body>
+            <div>
                 <h3> med 2.0 Trends Page </h3>
                 <div className="container">
                     <TrendsForm />
                     <TrendsMap />
                 </div>
                 
-            </body>
+            </div>
 
             
             )
