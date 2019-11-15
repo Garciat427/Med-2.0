@@ -10,16 +10,12 @@ class Diagnosis extends Component {
       firstName : "",
       lastName : "",
       birthYear : "",
-      gender : "",
-
-      /* About Me Page */
-      
+      gender : "",      
    }
 
   handleInputChange = (event) => {
      this.setState({[event.target.name]: event.target.value})
-     //console.log(this.state.firstName);
-     console.log(this.state.lastName);
+     console.log(event.target.value);
   }
 
   handleSubmitForm = (event) => {
@@ -35,6 +31,8 @@ class Diagnosis extends Component {
                handleInputChange = {this.handleInputChange}
                firstName = {this.state.firstName}
                lastName = {this.state.lastName}
+               birthYear = {this.state.birthYear}
+               gender = {this.state.gender}
             /> )
       }
       
