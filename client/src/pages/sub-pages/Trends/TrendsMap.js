@@ -4,11 +4,11 @@ import API from "../../../utils/API";
 
 class TrendsMap extends React.Component {
   componentDidMount() {
-    API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.props.match.param.city)
+    API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.props.city)
     .then(res => this.setState({ records: res.data }))
     .catch(err => console.log(err));
   }
-
+  
   // componentDidMount() {
   //   API.getBook(this.props.match.params.id)
   //     .then(res => this.setState({ book: res.data }))

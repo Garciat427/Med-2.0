@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Button, Card, Row, Col, Dropdown, Select } from 'react-materialize';
 import API from "../../../utils/API";
 
 class TrendsForm extends React.Component {
@@ -7,9 +7,10 @@ class TrendsForm extends React.Component {
     state = {
         diagnoses: [],
         records: [],
-        city: "",
-        disease: ""
-    };
+        // city: "",
+        // disease: ""
+        
+    }
 
     /*     componentDidMount() {
             
@@ -39,46 +40,30 @@ class TrendsForm extends React.Component {
             .catch(err => console.log(err));
     };
 
-    handleInputChange = event => {
-        // Getting the value and name of the input which triggered the change
-        const { name, value } = event.target;
-
-        // Updating the input's state
-        this.setState({
-            [name]: value
-        });
-    };
+    
 
 
-    handleFormSubmit = event => {
-        // Preventing the default behavior of the form submit (which is to refresh the page)
-        event.preventDefault();
+    // handleFormSubmit = event => {
+    //     // Preventing the default behavior of the form submit (which is to refresh the page)
+    //     event.preventDefault();
 
-        // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
-        alert(`city picked  ${this.state.city} and disease ${this.state.disease}`);
-        // this.setState({
-        //   firstName: "",
-        //   lastName: ""
-        // });
+    //     // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
+    //     // alert(`city picked  ${this.props.city} and disease ${this.props.disease}`);
+    //     // this.setState({
+    //     //   firstName: "",
+    //     //   lastName: ""
+    //     // });
+    
+    //         API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.props.city)
+    //         .then(res => 
+    //             {
+    //                 this.setState({ records: res.data });
+    //                 // alert(JSON.stringify (res.data));
+    //                 alert(JSON.stringify (res.data[0].city));
 
-        // sample handle form submit, also see line98 of pages/Books.js
-
-        // handleFormSubmit = event => {
-        //     event.preventDefault();
-        //     if (this.state.title && this.state.author) {
-        //       API.saveBook({
-        //         title: this.state.title,
-        //         author: this.state.author,
-        //         synopsis: this.state.synopsis
-        //       })
-        //         .then(res => this.loadBooks())
-        //         .catch(err => console.log(err));
-        //     }
-        //   };
-
-
-
-    };
+    //     })
+    //         .catch(err => console.log(err));
+    // };
 
     render() {
 
@@ -92,39 +77,49 @@ class TrendsForm extends React.Component {
                         <label for="city">City</label>
                     </div> */}
 
-                    
 
-                    <div className="input-field col s6">
-                        <select onChange={this.handleInputChange} value={this.state.city} name="city" >
-                            <option value="" disabled selected>Choose your option></option>
-                            {this.state.records.map(records => (
-                                <option value={records.city}>{records.city}</option>
+
+                    <div className="input-field col s4">
+                        <Select onChange={this.props.change} value={this.props.city} name="city" >
+                            <option value="" disabled selected>Choose your city></option>
+                            {this.state.records.map((records, index) => (
+                                <option key={records.city + index} value={records.city}>{records.city}</option>
                             )
                             )}
-                            <option value="Calgary">Calgary</option>
-                            <option value="Edmonton">Edmonton</option>
-                            <option value="3">Option 3</option>
-                        </select>
-                        <label>Select City</label>
+
+                        </Select>
+                        {/* <label>Select City</label> */}
                     </div>
 
-                    <div className="input-field col s6">
-                        <select onChange={this.handleInputChange} value={this.state.disease} name="disease" >
-                            <option value="" disabled selected>Choose your option></option>
-                            {this.state.diagnoses.map(diagnoses => (
-                                <option value={diagnoses.name}>{diagnoses.name}</option>
+                    <div className="input-field col s4">
+                     
+                        <Select onChange={this.props.change} value={this.props.disease} name = "disease">
+                        <option value="" disabled selected>Choose your disease></option>
+                            {this.state.diagnoses.map((diagnoses, index) => (
+                                <option key = {diagnoses.name + index} value={diagnoses.name }>{diagnoses.name}</option>
+                            )
+                            )}  
+
+                        </Select>
+
+                        {/* <select onChange={this.handleInputChange} value={this.state.disease} name="disease" >
+                            {/* <option value="" disabled selected>Choose your option></option>  
+                            {this.state.diagnoses.map((diagnoses, index) => (
+                                <option key = {diagnoses.name + index} value={diagnoses.name}>{diagnoses.name}</option>
                             )
                             )}
-                            <option value="INFLUENZA">INFLUENZA</option>
+                             */}
+                        {/* <option value="INFLUENZA">INFLUENZA</option>
                             <option value="SYPHILIS">SYPHILIS</option>
                             <option value="3">Option 3</option>
-                        </select>
-                        <label>Select Disease</label>
+                        </select> */}
+                        {/* <label>Select Disease</label> */}
+
                     </div>
 
-                    <button className="waves-effect waves-light btn col s2" 
-                    disabled={!(this.state.city)}
-                    onClick={this.handleFormSubmit} >Submit</button>
+                    <button className="waves-effect waves-light btn col s2"
+                        // disabled={!(this.state.city)}
+                        onClick={this.props.handleFormSubmit} >Submit</button>
                 </div>
             </div>
 

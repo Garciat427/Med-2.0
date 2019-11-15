@@ -25,6 +25,7 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.3.16",
     "mysql2": "^2.0.0",
+    "react-materialize": "^3.4.1",
     "sequelize": "^5.21.2"
   }
 }
