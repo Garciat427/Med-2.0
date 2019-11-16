@@ -50,26 +50,5 @@ function Footer() {
       </div>
    );
 }
-/* <div className="footer-copyright">
-        <div className="container">
-          <p>
-            © 2019 Copyright Med 2.0
-            <p className="white-text right">The MED 2.0 Team (click on the name to visit their GitHub)</p>
-            <ul>
-              <li>
-                <a className="grey-text text-lighten-3 right" href="https://github.com/arif2301"><i className="link-Footer fab fa-github"></i>- Arifur Rahman </a>
-              </li>
-              
-              <li>
-                <a className="grey-text text-lighten-3 right" href="https://github.com/lcocard"><i className="link-Footer fab fa-github"></i>- Lawrence Cocard </a>
-              </li>
-              <li><a className="grey-text text-lighten-3 right" href="https://github.com/majedline">- Majed Atwi </a></li>
-              <li><a className="grey-text text-lighten-3 right " href="https://github.com/Garciat427">Troy Garcia </a></li>
-            </ul>
-            {/* <a className="grey-text text-lighten-4 right" href="#!">More Links</a> 
-            </p>
-            </div>
-          </div> */
-
 
 export default Footer;
