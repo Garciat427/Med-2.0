@@ -23,4 +23,9 @@ router
   .route("/sympSel/:gender/:birthYear/:symptoms")
   .get(apiMedicController.sympSel);
   
+// Req 7 Get Diagnosis
+router
+  .route("/diagSel/:gender/:birthYear/:symptoms")
+  .get(apiMedicController.diagSel);
+  
 module.exports = router;
