@@ -11,7 +11,7 @@ class Landing extends Component {
     // When this component mounts, grab the book with the _id of this.props.match.params.id
     componentDidMount() {
 
-        API.getAllPrimaryDiagnosisInCityInPast4Weeks("Hamilton")
+        API.getAllPrimryDiagnosisInCityInPast4Weeks("Hamilton")
             .then(res => {
                 console.log(res.data);
                 this.setState({ results_primary_diagnosis_in_city_in_past_4_weeks: res.data });
