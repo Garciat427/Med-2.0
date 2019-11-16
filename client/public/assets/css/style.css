@@ -10,14 +10,25 @@ main {
 
 /* Footer CSS */
 .page-footer{
-  padding-top: 0 !important;
+  padding-top:15px !important;
+}
+
+.link-Footer {
+  font-size: 200%;
+  padding-right: 8px;
+
+}
+.footerLink {
+  padding-bottom : 8px;
+  
 }
 
 
-/* Homepage CSS */
+
+/* General CSS */
 .buttonLink {
   transition: color 0.1s;
 }
 .buttonLink:hover {
-  color: #eeeeee!important;
+  color: #b39ddb!important;
 }
