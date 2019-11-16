@@ -5,11 +5,13 @@
 import React from "react";
 
 function Footer() {
+
+  
   return (
-    <footer className="page-footer">
+    <footer className="page-footer deep-purple lighten-1">
       <div className="footer-copyright">
         <div className="container">
-          © 2019 Copyright
+          © 2019 Copyright Med 2.0
        <h8 className="white-text right">The MED 2.0 Team (click on the name to visit their GitHub)</h8>
           <ul>
             <li><a className="grey-text text-lighten-3 right" href="https://github.com/arif2301">- Arifur Rahman </a></li>
