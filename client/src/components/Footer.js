@@ -8,7 +8,7 @@ function Footer() {
 
   
   return (
-    <footer className="page-footer deep-purple lighten-1">
+    <div className="page-footer deep-purple lighten-1">
       <div className="footer-copyright">
         <div className="container">
           © 2019 Copyright Med 2.0
@@ -22,7 +22,7 @@ function Footer() {
           {/* <a className="grey-text text-lighten-4 right" href="#!">More Links</a> */}
         </div>
       </div>
-    </footer>
+    </div>
   );
 }
 

@@ -15,7 +15,7 @@ import Diagnosis from "./sub-pages/Diagnosis/Diagnosis";
 
 function MainApp() {
     return (
-    <main>
+    <div>
         <Router>
             <Switch>
                 {/* Root Path - HomePage */}
@@ -32,7 +32,7 @@ function MainApp() {
                 <Route component={ErrorPage} />
             </Switch> 
         </Router>
-    </main>
+    </div>
     );
 }
 
