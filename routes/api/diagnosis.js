@@ -20,6 +20,10 @@ router
   .route("/cityDiagnosisRatio/:name/weeks-back/:weeks")
   .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
 
+  router
+  .route("/cityDiagnosisRatio/all/weeks-back/:weeks")
+  .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
+
 
 router
   .route("/distinct-diagnosis/")

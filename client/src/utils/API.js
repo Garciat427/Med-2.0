@@ -121,13 +121,13 @@ export default {
 //*************************** Req 3 + 4 + n - Symptoms ***************************
 
   //Req 3 - Get Symptoms based on Specific Body Location
-  getBodySymp: () => {
-    return axios.get("/api/apiMedic/bodySymp/:gender/:birthYear/:id");
+  getBodySymp: (gender, birthYear, id) => {
+    return axios.get("/api/apiMedic/bodySymp/" + gender + "/" + birthYear + "/"+ id);
   },
 
   //Req 4 + n - Get Symptoms based on previous symptoms
-  getSympSel: () => {
-    return axios.get("/api/apiMedic/sympSel/:gender/:birthYear/:symptoms");
+  getSympSel: (gender, birthYear, symptoms) => {
+    return axios.get("/api/apiMedic/sympSel/" + gender + "/" + birthYear + "/"+ symptoms);
   },
 
   /*  
@@ -150,5 +150,9 @@ export default {
     Example req3Url: /api/apiMedic/bodySymp/male/1990/33
     Example req4+nUrl: /api/apiMedic/sympSel/male/1990/[10, 50]
   */
+
+ getDiagSel: () => {
+  return axios.get("/diagSel/:gender/:birthYear/:symptoms");
+},
 
 };
