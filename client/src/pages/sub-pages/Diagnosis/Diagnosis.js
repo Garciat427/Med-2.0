@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import AboutMeForm from "./AboutMeForm"
 import BodyLocationForm from "./BodyLocationForm"
 import SymptomsForm from "./SymptomsForm"
+import DiagnoseSymptoms from "./DiagnoseSymptoms"
 
 
 //Route Dependencies
@@ -28,26 +29,52 @@ class Diagnosis extends Component {
       /* Symptoms Page */
       SymptomsForm: false,
       bodySymp: true,
-      symptoms:[],
-      symptomsSel:[],
+      symptoms: [],
+      symptomsSel: [],
+
+      /* Diagnosis Page */
+      DiagnosisForm: false,
+      diagnosis: []
    }
 
    handleInputChange = (event) => {
-      this.setState({[event.target.name]: event.target.value })
+      this.setState({ [event.target.name]: event.target.value })
       console.log(event.target.value)
    }
    handleSymptomsSelect = (event) => {
-      console.log("Clicked")
-      //Collect Selected Symptoms
-      let sympArr = this.state.symptomsSel
-      sympArr.push(event.target.value)
-      this.setState({symptomsSel: sympArr })
-      
-      //Get New Proposed Symptoms
-      let strSymptoms = JSON.stringify(this.state.symptomsSel)
-      console.log(strSymptoms)
-      API.getSympSel(this.state.gender, this.state.birthYear, 
-         strSymptoms)
+      console.log (event.target.value)
+      let strSymptoms
+      //If Get Diag Button was Pressed
+      if (event.target.value === "GetDiag") {
+      strSymptoms = JSON.stringify(this.state.symptomsSel)
+      console.log("Test")
+         //Get Diagnosis
+         API.getDiagSel(this.state.gender, this.state.birthYear,
+            strSymptoms)
+            .then(res => {
+               console.log(res.data)
+               //Place new Symptoms in symptoms State
+               this.setState({ diagnosis: res.data })
+               //Set State of DiagnosisForm to True
+               this.setState({ DiagnosisForm: true })
+               //Set Symptoms Form to False to display DiagnoseSymptoms Page
+               this.setState({ SymptomsForm: false })
+            })
+            .catch(err => console.log(err)); //Catch Errors 
+
+
+
+      } else { //Select Symptoms Button
+         //Collect Selected Symptoms
+         let sympArr = this.state.symptomsSel
+         sympArr.push(event.target.value)
+         this.setState({ symptomsSel: sympArr })
+
+         //Get New Proposed Symptoms
+         strSymptoms = JSON.stringify(this.state.symptomsSel)
+         console.log(strSymptoms)
+         API.getSympSel(this.state.gender, this.state.birthYear,
+            strSymptoms)
             .then(res => {
                //Place new Symptoms in symptoms State
                this.setState({ symptoms: res.data })
@@ -55,7 +82,7 @@ class Diagnosis extends Component {
             })
             .catch(err => console.log(err)); //Catch Errors 
       }
-      
+   }
 
    handleSubmitForm = (event) => {
       event.preventDefault();
@@ -157,9 +184,18 @@ class Diagnosis extends Component {
                symptoms={this.state.symptoms}
             />
          )
+      } else if (this.state.DiagnosisForm) {
+         return (
+            <DiagnoseSymptoms
+               submitHandler={this.handleSubmitForm}
+               handleSymptomsSelect={this.handleSymptomsSelect}
+               diagnosis={this.state.diagnosis}
+            />
+         )
       }
 
    }
+
 
 
 

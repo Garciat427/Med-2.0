@@ -151,8 +151,8 @@ export default {
     Example req4+nUrl: /api/apiMedic/sympSel/male/1990/[10, 50]
   */
 
- getDiagSel: () => {
-  return axios.get("/diagSel/:gender/:birthYear/:symptoms");
+ getDiagSel: (gender, birthYear, symptoms) => {
+  return axios.get("/api/apiMedic/diagSel/" + gender + "/" + birthYear + "/"+ symptoms);
 },
 
 };
