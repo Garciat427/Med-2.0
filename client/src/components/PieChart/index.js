@@ -5,7 +5,7 @@ import Helper from "../../utils/Helper";
 
 function PieChart(props) {
 
-    let data = buildPieChartData(props.labels, props.data, new Helper().getRandomColourList(props.labels));
+    let data = buildPieChartData(props.labels, props.chartData, new Helper().getRandomColourList(props.labels));
 
     // show the pie chart if there is data. Otherwise, show a message saying no data found.
     let pieChartToShow =  (props.labels.length > 0) ? <Pie data={data} /> : <div className='center-align'>Sorry, No results were found for the current city</div>;

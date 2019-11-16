@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import PieChart from "../../components/PieChart";
 import API from "../../utils/API";
+import DiagnosisRatioTable from "../../components/DiagnosisRatioTable";
+import Helper from "../../utils/Helper";
 
 class Home extends Component {
     state = {
         chartData: {
             labels: [],
-            data: []
-        }
-    }
+            data: [],
+        },
+        rawData: []
+    };
 
     componentDidMount() {
 
@@ -18,22 +21,33 @@ class Home extends Component {
 
                 let labelsIn = [];
                 let dataIn = [];
+                let cityIn = [];
+                let diagnosesIn = [];
+                let rawDataIn = [];
 
-                (res.data).forEach(element => {
-                    labelsIn.push("["+element.city + "] " + element.name);
-                    dataIn.push(element.percentage);
+                (res.data).forEach((element, index) => {
+                    let p = parseFloat(element.percentage);
+                    labelsIn.push("[" + element.city + "] " + element.name);
+                    dataIn.push(p);
+                    cityIn.push(element.city);
+                    diagnosesIn.push(element.name);
+                    rawDataIn.push(element);
                 });
 
                 let newChartData = {
                     labels: labelsIn,
-                    data: dataIn
+                    data: dataIn,
+                    cities: cityIn,
+                    diagnoses: diagnosesIn
                 }
+                let newState = new Helper().cloneObject(this.state);
+                newState.chartData = newChartData;
+                newState.rawData = rawDataIn;
 
-                this.setState({ chartData: newChartData });
+                this.setState(newState);
             })
             .catch(err => console.log(err));
     }
-
 
 
     render() {
@@ -44,9 +58,11 @@ class Home extends Component {
 
                         <PieChart
                             labels={this.state.chartData.labels}
-                            data={this.state.chartData.data}
+                            chartData={this.state.chartData.data}
                         />
-
+                        <DiagnosisRatioTable 
+                            cityName = {this.state.city}
+                        />
                     </div>
                     <div className="col s4">
                         <h3>Welcome to Med 2.0</h3>
