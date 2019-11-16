@@ -59,7 +59,7 @@ class Home extends Component {
                             labels={this.state.chartData.labels}
                             chartData={this.state.chartData.data}
                         />
-           
+          
                     </div>
                     <div className="col s4">
                         <h3>Welcome to Med 2.0</h3>
@@ -71,10 +71,10 @@ class Home extends Component {
                 {/* Button Section */}
                 <div className="row">
                     <div className="col s8 center">
-                        <a className="waves-effect waves-light btn-large" href={"/diagnosis"}>Diagnosis</a>
+                        <a className="waves-effect waves-light btn-large" href={"/diagnosis"}>Get Diagnosis</a>
                     </div>
                     <div className="col s4 center">
-                        <a className="waves-effect waves-light btn-large" href={"/trends"}>Trends</a>
+                        <a className="waves-effect waves-light btn-large" href={"/trends"}>Show Trends</a>
                     </div>
                 </div>
             </div>
