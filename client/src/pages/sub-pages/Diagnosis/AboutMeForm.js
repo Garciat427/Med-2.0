@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { TextInput, Button} from 'react-materialize';
+import { TextInput, Button } from 'react-materialize';
 
-class AboutMe extends Component {
-
+class AboutMeForm extends Component {
    render(){
       return (
          <form onSubmit = {this.props.submitHandler}>
@@ -76,4 +75,4 @@ class AboutMe extends Component {
     }    
  }
 
- export default AboutMe;
+ export default AboutMeForm;
