@@ -1,0 +1,34 @@
+main {
+  background-image: linear-gradient(#ede7f6,#b39ddb) !important; /* ,#7e57c2 */
+}
+
+
+/* Header CSS */
+.headerLogo {
+  font-size: 150% !important;
+}
+
+/* Footer CSS */
+.page-footer{
+  padding-top:15px !important;
+}
+
+.link-Footer {
+  font-size: 200%;
+  padding-right: 8px;
+
+}
+.footerLink {
+  padding-bottom : 8px;
+  
+}
+
+
+
+/* General CSS */
+.buttonLink {
+  transition: color 0.1s;
+}
+.buttonLink:hover {
+  color: #b39ddb!important;
+}
