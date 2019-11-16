@@ -9,9 +9,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Page Dependencies 
 import Home from "./sub-pages/Home";
-import AboutMe from "./sub-pages/Diagnosis/AboutMeForm";
 import Trends from "./sub-pages/trends";
 import ErrorPage from "./sub-pages/ErrorPage";
+import Diagnosis from "./sub-pages/Diagnosis/Diagnosis";
 
 function MainApp() {
     return (
@@ -22,8 +22,8 @@ function MainApp() {
                 <Route exact path="/" component={Home} />
 
                 {/* /Diagnosis Paths - Diagnosis Page */}   
-                <Route exact path="/diagnosis" component={AboutMe} />
-                <Route exact path="/diagnosis/body-locations" component={AboutMe} />
+                <Route exact path="/diagnosis" component={Diagnosis} />
+                
 
                 {/* /Trends Path - Trends Page */}   
                 <Route exact path="/trends" component={Trends} />   

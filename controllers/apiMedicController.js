@@ -10,7 +10,9 @@ const apiMedicUrl = {
   bodySymp: "https://priaid-symptom-checker-v1.p.rapidapi.com/symptoms",
 
   // Req 4 + 5 + 6 (Find Symptoms Based Previous Symptoms)
-  propSymp: "https://priaid-symptom-checker-v1.p.rapidapi.com/symptoms/proposed"
+  propSymp: "https://priaid-symptom-checker-v1.p.rapidapi.com/symptoms/proposed",
+
+  diagFind: "https://priaid-symptom-checker-v1.p.rapidapi.com/diagnosis"
 }
 
 const headers = {
@@ -88,6 +90,25 @@ module.exports = {
   sympSel : (req, res) => {
     //Request Config
     reqUrl = apiMedicUrl.propSymp;
+    reqConfig = {
+      params : { //All Params must be String
+        "symptoms": req.params.symptoms, //Stringified Array
+	      "gender": req.params.gender, 
+	      "year_of_birth": req.params.birthYear, 
+        "language": "en-gb" 
+      },
+      headers : headers
+    }
+    //Axios Request
+    axios
+      .get(reqUrl, reqConfig)
+      .then(response => res.json(response.data))
+      .catch(err => res.status(422).json(err))
+  },
+
+  diagSel : (req, res) => {
+    //Request Config
+    reqUrl = apiMedicUrl.diagFind;
     reqConfig = {
       params : { //All Params must be String
         "symptoms": req.params.symptoms, //Stringified Array
