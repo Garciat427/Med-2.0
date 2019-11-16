@@ -23,12 +23,23 @@ main {
   
 }
 
-
-
 /* General CSS */
 .buttonLink {
   transition: color 0.1s;
 }
 .buttonLink:hover {
   color: #b39ddb!important;
+}
+
+.disclaimer {
+  font-size: 95%;
+  color: #9e9e9e;
+}
+
+/* Form CSS */
+
+.arrowDown {
+  font-size: 150%;
+  padding : 10px;
+  
 }

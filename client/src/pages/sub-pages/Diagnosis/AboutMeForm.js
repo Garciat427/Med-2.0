@@ -8,7 +8,9 @@ class AboutMeForm extends Component {
             <div className="container">
                <div className="row">
                   <div className = "col s12">
-                     <h1 className="center">About Me</h1>
+                     <h3 className="center">About Me</h3>
+                     <p className="center">Tell us about your self! We mainly need this information to provide a more accurate diagnosis later!
+                     </p>
                   </div>
                </div>
 
@@ -20,6 +22,7 @@ class AboutMeForm extends Component {
                      name = "firstName" 
                      label="First Name (Optional)"
                      s = {6} 
+                     validate = {true}
                   />
                   {/* Last Name */}
                   <TextInput 
@@ -28,8 +31,8 @@ class AboutMeForm extends Component {
                      name = "lastName" 
                      label="Last Name (Optional)"
                      s = {6} 
+                     validate = {true}
                   />
-                  
                </div>
                
                <div className="row">
@@ -51,6 +54,7 @@ class AboutMeForm extends Component {
                         value = {this.props.gender} 
                         onChange = {this.props.handleInputChange} 
                         validate = {true}
+                        className="textColor"
                      >
                         <option selected disabled value="">Choose a Gender</option>
                         <option value="male">Male</option>
@@ -62,8 +66,9 @@ class AboutMeForm extends Component {
                </div>
 
                <div className="row">
-                  <div className = "col s12">
+                  <div className = "col s12 center">
                      <Button 
+                     className= "deep-purple lighten-1 hoverable"
                      disabled={!(this.props.gender && this.props.birthYear)}
                      type="submit" 
                      waves="light" 
