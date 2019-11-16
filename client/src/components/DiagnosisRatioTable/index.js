@@ -35,6 +35,7 @@ class DiagnosisRatioTable extends Component {
     render() {
         // const items = this.state.rawData;
         const items = this.props.rawData;
+        console.log("here ************");
         console.log(items);
 
         return (
@@ -51,8 +52,9 @@ class DiagnosisRatioTable extends Component {
 
                     <tbody>
 
-                        {items.map((item) => {
+                        {items.map((item, index) => {
                             return <TableRow
+                                key={index}
                                 city={item.city}
                                 name={item.name}
                                 percentage={item.percentage}
