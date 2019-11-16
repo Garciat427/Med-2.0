@@ -15,7 +15,7 @@ import Diagnosis from "./sub-pages/Diagnosis/Diagnosis";
 
 function MainApp() {
     return (
-    <main>
+    <main className="Site-Content">
         <Router>
             <Switch>
                 {/* Root Path - HomePage */}

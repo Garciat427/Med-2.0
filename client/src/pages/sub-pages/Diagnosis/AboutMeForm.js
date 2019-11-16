@@ -40,6 +40,7 @@ class AboutMeForm extends Component {
                      name = "birthYear" 
                      label="Birth Year (Required)"
                      type = "number"
+                     validate = {true}
                      s = {6} 
                   />
                   {/* Gender */}
@@ -49,6 +50,7 @@ class AboutMeForm extends Component {
                         label="Gender (Required)"
                         value = {this.props.gender} 
                         onChange = {this.props.handleInputChange} 
+                        validate = {true}
                      >
                         <option selected disabled value="">Choose a Gender</option>
                         <option value="male">Male</option>
@@ -61,7 +63,9 @@ class AboutMeForm extends Component {
 
                <div className="row">
                   <div className = "col s12">
-                     <Button type="submit" 
+                     <Button 
+                     disabled={!(this.props.gender && this.props.birthYear)}
+                     type="submit" 
                      waves="light" 
                      style={{marginRight: '5px'}}>
                         Submit
