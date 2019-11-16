@@ -1,18 +1,17 @@
 import React from "react";
 
-import API from "../../../utils/API";
+//import API from "../../../utils/API";
+
+// trends page - map component
 
 class TrendsMap extends React.Component {
-  componentDidMount() {
-    API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.props.city)
-    .then(res => this.setState({ records: res.data }))
-    .catch(err => console.log(err));
-  }
+
+  // not sure if componentDidMount is necessary
   
   // componentDidMount() {
-  //   API.getBook(this.props.match.params.id)
-  //     .then(res => this.setState({ book: res.data }))
-  //     .catch(err => console.log(err));
+  //   API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.props.city)
+  //   .then(res => this.setState({ records: res.data }))
+  //   .catch(err => console.log(err));
   // }
 
   render() {

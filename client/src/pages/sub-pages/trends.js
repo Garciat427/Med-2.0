@@ -3,7 +3,8 @@ import API from "../../utils/API";
 
 //import { Link } from "react-router-dom";
 import TrendsForm from "./Trends/TrendsForm";
-import TrendsMap from "./Trends/TrendsMap"
+import TrendsMap from "./Trends/TrendsMap";
+import TrendsChart from "./Trends/TrendsChart"
 import { set } from "mongoose";
 
 let rendermap;
@@ -13,8 +14,8 @@ class Trends extends Component {
     
 
     state = {
-        city : "pick your city",
-        disease : "pick your disease",
+        city : "",
+        disease : "",
         rendermap: false
     }
     // state = {
@@ -27,13 +28,17 @@ class Trends extends Component {
         return (
            
             <div>
-                <h3> med 2.0 Trends Page </h3>
+                
                 <div className="container">
-                    
+                <h5> Have a look at various diagnosis trends </h5>
+                </div>
+                
                     <TrendsForm city ={this.state.city} disease= {this.state.disease} rendermap ={this.state.rendermap} change = {this.handleInputChange}
                     handleFormSubmit={this.handleFormSubmit}/>
+                    
+                    {this.state.rendermap ? <TrendsChart /> : null}
                     {this.state.rendermap ? <TrendsMap /> : null}
-                </div>
+                
                 
             </div>
         
@@ -59,7 +64,7 @@ class Trends extends Component {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
 
-            setState ()
+            //setState ()
             API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.state.city)
             .then(res => 
                 {

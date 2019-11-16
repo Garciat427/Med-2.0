@@ -7,9 +7,6 @@ class TrendsForm extends React.Component {
     state = {
         diagnoses: [],
         records: [],
-        // city: "",
-        // disease: ""
-        
     }
 
     /*     componentDidMount() {
@@ -40,7 +37,7 @@ class TrendsForm extends React.Component {
             .catch(err => console.log(err));
     };
 
-    
+
 
 
     // handleFormSubmit = event => {
@@ -53,7 +50,7 @@ class TrendsForm extends React.Component {
     //     //   firstName: "",
     //     //   lastName: ""
     //     // });
-    
+
     //         API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.props.city)
     //         .then(res => 
     //             {
@@ -69,36 +66,42 @@ class TrendsForm extends React.Component {
 
 
         return (
-            <div className="container">
+             <div className="container">
+                {/* <div className="row">
+                <div className="input-field col s6">
+                        <h6>Select City</h6>
+                        </div>
+                        <div className="input-field col s6">
+                        <h6>Select Diagonis</h6>
+                </div>
+                </div> */}
                 <div className="row">
-                    {/* <div className="input-field col s4">
-                        <input placeholder="Toronto" id="city" type="text" class="validate"
-                            onChange={this.handleInputChange} value={this.state.city} name="city" />
-                        <label for="city">City</label>
-                    </div> */}
 
 
 
-                    <div className="input-field col s4">
+
+                    <div className="input-field col s6">
+                        
                         <Select onChange={this.props.change} value={this.props.city} name="city" >
-                            <option value="" disabled selected>Choose your city></option>
+                            {/* <Select onChange={this.props.change} value="" name="city" > */}
+                            <option value="" disabled>Choose your city></option>
                             {this.state.records.map((records, index) => (
                                 <option key={records.city + index} value={records.city}>{records.city}</option>
                             )
                             )}
 
                         </Select>
-                        {/* <label>Select City</label> */}
+
                     </div>
 
-                    <div className="input-field col s4">
-                     
-                        <Select onChange={this.props.change} value={this.props.disease} name = "disease">
-                        <option value="" disabled selected>Choose your disease></option>
+                    <div className="input-field col s6">
+
+                        <Select onChange={this.props.change} value={this.props.disease} name="disease">
+                            <option value="" disabled selected>Choose your disease></option>
                             {this.state.diagnoses.map((diagnoses, index) => (
-                                <option key = {diagnoses.name + index} value={diagnoses.name }>{diagnoses.name}</option>
+                                <option key={diagnoses.name + index} value={diagnoses.name}>{diagnoses.name}</option>
                             )
-                            )}  
+                            )}
 
                         </Select>
 
@@ -117,27 +120,20 @@ class TrendsForm extends React.Component {
 
                     </div>
 
-                    <button className="waves-effect waves-light btn col s2"
-                        // disabled={!(this.state.city)}
-                        onClick={this.props.handleFormSubmit} >Submit</button>
+
                 </div>
-            </div>
+                
+                <div className="row">
+                    <button className="waves-effect waves-light btn col s2 left-align"
+                        disabled={!(this.props.city)}
+                        onClick={this.props.handleFormSubmit} >Submit</button>
+    </div>
+                
 
-            // experiment drop down form that is its own
 
-            // <div className="row">
-            //     <div className="input-field col s6">
-            //         <select onChange={this.handleInputChange} value={this.state.disease} name="disease" >
-            //             <option value="" disabled selected>Choose your option></option>
-            //             <option value="INFLUENZA">INFLUENZA</option>
-            //             <option value="SYPHILIS">SYPHILIS</option>
-            //             <option value="3">Option 3</option>
-            //         </select>
-            //         <label>Select Disease</label>
 
-            //     </div>
-            //     <button className="waves-effect waves-light btn col s2" onClick={this.handleFormSubmit} >Submit</button>
             // </div>
+
 
 
         );
