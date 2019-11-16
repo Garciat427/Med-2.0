@@ -71,10 +71,10 @@ class Home extends Component {
                 {/* Button Section */}
                 <div className="row">
                     <div className="col s8 center">
-                        <a className="waves-effect waves-light btn-large" href={"/diagnosis"}>Get Diagnosis</a>
+                        <a className="waves-effect waves-light btn-large buttonLink deep-purple lighten-1 hoverable" href={"/trends"}>Show Trends</a>
                     </div>
                     <div className="col s4 center">
-                        <a className="waves-effect waves-light btn-large" href={"/trends"}>Show Trends</a>
+                        <a className="waves-effect waves-light btn-large buttonLink deep-purple lighten-1 hoverable" href={"/diagnosis"}>Get Diagnosis</a>
                     </div>
                 </div>
             </div>
