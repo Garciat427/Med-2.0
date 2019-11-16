@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PieChart from "../../components/PieChart";
 import API from "../../utils/API";
-import DiagnosisRatioTable from "../../components/DiagnosisRatioTable";
 import Helper from "../../utils/Helper";
 
 class Home extends Component {
@@ -60,7 +59,7 @@ class Home extends Component {
                             labels={this.state.chartData.labels}
                             chartData={this.state.chartData.data}
                         />
-                    
+          
                     </div>
                     <div className="col s4">
                         <h3>Welcome to Med 2.0</h3>
