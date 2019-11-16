@@ -20,8 +20,9 @@ class Diagnosis extends Component {
       gender: "",
 
       /* Body Locations Page */
+      imageRoute : "assets/images/BodyVectors/Empty.png",
       locations: [],
-      bodyLocationType: "General Body Locations",
+      bodyLocationType: "General Body Location",
       selLocation: "",
       BodyLocationForm: false,
       BodyGen: true,
@@ -39,7 +40,27 @@ class Diagnosis extends Component {
 
    handleInputChange = (event) => {
       this.setState({ [event.target.name]: event.target.value })
-      console.log(event.target.value)
+   }
+   handleInputBodyLoc = (event) => {
+      if (this.state.BodyGen){
+         let imgPath
+         if (event.target.value == 16) {
+            imgPath = "assets/images/BodyVectors/APB.png"
+         } else if (event.target.value == 7) {
+            imgPath = "assets/images/BodyVectors/ArmsShoulders.png"
+         } else if (event.target.value == 15) {
+            imgPath = "assets/images/BodyVectors/ChestBack.png"
+         } else if (event.target.value == 6) {
+            imgPath = "assets/images/BodyVectors/HeadThroatNeck.png"
+         } else if (event.target.value == 10) {
+            imgPath = "assets/images/BodyVectors/Legs.png"
+         } else {
+            imgPath = "assets/images/BodyVectors/skinJGeneral.png"
+         }
+         this.setState({ imageRoute: imgPath })
+      }
+
+      this.setState({ [event.target.name]: event.target.value })
    }
    handleSymptomsSelect = (event) => {
       console.log (event.target.value)
@@ -113,7 +134,7 @@ class Diagnosis extends Component {
 
                //Set BodyGen To False (Specific Locations)
                this.setState({ BodyGen: false })
-               this.setState({ bodyLocationType: "Specific Body Locations" })
+               this.setState({ bodyLocationType: "Specific Body Location" })
             })
             .catch(err => console.log(err)); //Catch Errors 
       }
@@ -170,7 +191,8 @@ class Diagnosis extends Component {
          return (
             <BodyLocationForm
                submitHandler={this.handleSubmitForm}
-               handleInputChange={this.handleInputChange}
+               handleInputChange={this.handleInputBodyLoc}
+               imageRoute={this.state.imageRoute}
                locations={this.state.locations}
                genLocation={this.state.genLocation}
                bodyLocationType={this.state.bodyLocationType}
