@@ -1,6 +1,10 @@
+body {
+  background-image: linear-gradient(#fdfdfd,#b0bec5) !important;
+}
+
 /* Header CSS */
 .headerLogo {
-  font-size: 4vh !important;
+  font-size: 150% !important;
 }
 
 /* Homepage CSS */
