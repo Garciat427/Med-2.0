@@ -1,11 +1,18 @@
-body {
-  background-image: linear-gradient(#fdfdfd,#b0bec5) !important;
+main {
+  background-image: linear-gradient(#ede7f6,#b39ddb) !important; /* ,#7e57c2 */
 }
+
 
 /* Header CSS */
 .headerLogo {
   font-size: 150% !important;
 }
+
+/* Footer CSS */
+.page-footer{
+  padding-top: 0 !important;
+}
+
 
 /* Homepage CSS */
 .buttonLink {
