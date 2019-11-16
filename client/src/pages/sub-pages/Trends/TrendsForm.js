@@ -41,45 +41,26 @@ class TrendsForm extends React.Component {
                             )
                             )}
                         </Select>
-
                     </div>
 
                     <div className="input-field col s6">
-
                         <Select onChange={this.props.change} value={this.props.disease} name="disease">
                             <option value="" disabled selected>Choose your disease></option>
                             {this.state.diagnoses.map((diagnoses, index) => (
                                 <option key={diagnoses.name + index} value={diagnoses.name}>{diagnoses.name}</option>
                             )
                             )}
-
                         </Select>
-
-
-
-
                     </div>
-
-
                 </div>
-
                 <div className="row">
                     <button className="waves-effect waves-light btn col s2 left-align"
                         disabled={!(this.props.city)}
                         onClick={this.props.handleFormSubmit} >Submit</button>
                 </div>
-
-
-
-
             </div>
-
-
-
         );
     };
-
-
 }
 
 export default TrendsForm;

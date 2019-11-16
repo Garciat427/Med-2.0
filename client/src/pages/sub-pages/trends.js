@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import Helper from "../../utils/Helper";
-
 //import { Link } from "react-router-dom";
 import TrendsForm from "./Trends/TrendsForm";
 import TrendsMap from "./Trends/TrendsMap";
@@ -36,39 +35,6 @@ class Trends extends Component {
         rendermap: false,
         percentageData: []
     }
-    // state = {
-    //     med2,
-    //     trend
-    // }
-    render() {
-        return (
-            <div>
-                <div className="container">
-                    <h5> Have a look at various diagnosis trends </h5>
-                </div>
-                <TrendsForm city={this.state.city} disease={this.state.disease} rendermap={this.state.rendermap} change={this.handleInputChange}
-                    handleFormSubmit={this.handleFormSubmit} />
-
-                {/* {this.state.rendermap ?<TrendsChart rawData={this.state.percentageData} /> : null} */}
-                {/* {this.state.rendermap ? <TrendsMap /> : null} */}
-                {/* <TrendsChart 
-                        cityName = {this.state.city}
-                    /> */}
-
-                {/* <DiagnosisRatioTable 
-                    
-                        /> */}
-
-                <TrendsChart rawData={this.state.percentageData} />
-
-
-            </div>
-
-        )
-    }
-
-
-
 
     handleInputChange = event => {
         console.log(event.target);
@@ -85,6 +51,7 @@ class Trends extends Component {
 
     };
 
+
     handleFormSubmit = (event, city) => {
         // Preventing the default behavior of the form submit (which is to refresh the page)
         event.preventDefault();
@@ -99,20 +66,30 @@ class Trends extends Component {
 
                 // this.setState({ records: res.data });
                 this.setState(newState);
-                // console.log (this.state.city)
-                // alert(this.state.city);
-                //alert(JSON.stringify (res.data));
-                // alert(JSON.stringify (res.data[0].city));
-
             })
             .catch(err => console.log(err));
-
-
-
-
     };
 
 
+    render() {
+        return (
+            <div>
+                <div className="container">
+                    <h5> Have a look at various diagnosis trends </h5>
+                </div>
+                <TrendsForm city={this.state.city} disease={this.state.disease} rendermap={this.state.rendermap} change={this.handleInputChange}
+                    handleFormSubmit={this.handleFormSubmit} />
+
+                {/* {this.state.rendermap ?<TrendsChart rawData={this.state.percentageData} /> : null} */}
+                {/* {this.state.rendermap ? <TrendsMap /> : null} */}
+                {/* <TrendsChart 
+                        cityName = {this.state.city}
+                    /> */}
+
+                <TrendsChart rawData={this.state.percentageData} />
+            </div>
+        )
+    }
 }
 
 export default Trends;
