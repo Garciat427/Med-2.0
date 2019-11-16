@@ -104,8 +104,9 @@ export default {
   },
 
   //Req 2 - Get Specific Body Locations
-  getBodySpec: () => {
-    return axios.get("/api/apiMedic/bodyLoc/:id");
+  getBodySpec: (id) => {
+    console.log(id)
+    return axios.get("/api/apiMedic/bodyLoc/" + id);
   },
 
   /*  
