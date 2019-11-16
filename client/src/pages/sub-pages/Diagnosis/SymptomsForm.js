@@ -7,7 +7,13 @@ class SymptomsForm extends Component {
          <div className="container">
             <div className="row">
                <div className="col s12">
-                  <h1>Symptoms Page</h1>
+                  <h3 className="center">Symptoms</h3>
+                  <p className="center">
+                     We proposed a list of symptoms that you may be experiencing based on the information you provided.
+                  </p>
+                  <p className="center">
+                     Please select the (Minimum 2) symptoms you are experiencing
+                  </p>
                </div>
             </div>
 
@@ -16,7 +22,7 @@ class SymptomsForm extends Component {
                   <div> {/* Button box */}
                      {this.props.symptoms.map(symptom => (
                         <button
-                           className="waves-effect waves-light btn"
+                           className="waves-effect waves-light btn deep-purple lighten-1 hoverable"
                            onClick={this.props.handleSymptomsSelect}
                            waves="light"
                            style={{ margin: '5px' }}
@@ -30,8 +36,10 @@ class SymptomsForm extends Component {
             </div>
 
             <div className="row">
-               <div className="col s12">
+               <div className="col s12 center">
                   <Button
+                     className="deep-purple lighten-1 hoverable"
+                     disabled={!(this.props.minPassed)}
                      onClick={this.props.handleSymptomsSelect}
                      value="GetDiag"
                      waves="light"

@@ -32,6 +32,8 @@ class Diagnosis extends Component {
       bodySymp: true,
       symptoms: [],
       symptomsSel: [],
+      minPassed: false,
+      maxPassed: false,
 
       /* Diagnosis Page */
       DiagnosisForm: false,
@@ -90,6 +92,7 @@ class Diagnosis extends Component {
          let sympArr = this.state.symptomsSel
          sympArr.push(event.target.value)
          this.setState({ symptomsSel: sympArr })
+         
 
          //Get New Proposed Symptoms
          strSymptoms = JSON.stringify(this.state.symptomsSel)
@@ -100,6 +103,11 @@ class Diagnosis extends Component {
                //Place new Symptoms in symptoms State
                this.setState({ symptoms: res.data })
                console.log(this.state.symptoms)
+               if (!this.state.minPassed){
+                  if (this.state.symptomsSel.length >= 2){
+                     this.setState({ minPassed: true })
+                  }
+               }
             })
             .catch(err => console.log(err)); //Catch Errors 
       }
@@ -204,6 +212,7 @@ class Diagnosis extends Component {
                submitHandler={this.handleSubmitForm}
                handleSymptomsSelect={this.handleSymptomsSelect}
                symptoms={this.state.symptoms}
+               minPassed={this.state.minPassed}
             />
          )
       } else if (this.state.DiagnosisForm) {
