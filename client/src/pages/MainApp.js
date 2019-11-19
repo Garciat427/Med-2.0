@@ -12,6 +12,7 @@ import Home from "./sub-pages/Home";
 import Trends from "./sub-pages/trends";
 import ErrorPage from "./sub-pages/ErrorPage";
 import Diagnosis from "./sub-pages/Diagnosis/Diagnosis";
+import login from "./sub-pages/Login"
 
 function MainApp() {
     return (
@@ -20,6 +21,9 @@ function MainApp() {
             <Switch>
                 {/* Root Path - HomePage */}
                 <Route exact path="/" component={Home} />
+
+                {/* /Login - login Page */}   
+                <Route exact path="/login" component={login} />   
 
                 {/* /Diagnosis Paths - Diagnosis Page */}   
                 <Route exact path="/diagnosis" component={Diagnosis} />
