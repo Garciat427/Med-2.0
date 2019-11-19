@@ -21,7 +21,7 @@ class Login extends Component {
                   <div className="card grey lighten-2">
                      <div className="card-content Black-text">
                         <p>
-                           <a href="http://localhost:3001/auth/google" target="_blank" class="waves-effect waves-light btn">Signin With google</a>
+                           <a href="http://localhost:3001/auth/google" class="waves-effect waves-light btn">Signin With google</a>
                         </p>
                      </div>
                   </div>
