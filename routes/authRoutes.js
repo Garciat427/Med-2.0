@@ -15,15 +15,15 @@ router.get('/logout', (req, res) => {
 router.get(
    '/google', 
    passport.authenticate('google', 
-   { scope: ['profile'] })
+   { scope: ['profile'],  })
 )
 
 //Callback route for google
 router.get('/google/callback/',
    passport.authenticate('google'), 
    (req, res) => {
-      console.log("Redirect")
-      var name = req.user.name;
+      console.log(req.user)
+      var name = req.user.username;
       res.redirect("http://localhost:3000?name=" + name);
    }
 )

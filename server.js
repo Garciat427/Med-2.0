@@ -4,7 +4,6 @@ const express = require("express");
 //const passportSetup = require('./config/passportConfig');
 const passport = require('passport');
 const passportSetup = require('./config/passportConfig')
-const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session')
 
@@ -36,13 +35,10 @@ app.use(cookieSession({
 app.use(passport.initialize())
 app.use(passport.session())
 
-//Connect to mongoDB to hold Auth Users
-mongoose.connect(keys.mongodb.dbURI, ()=>{
-  console.log('connected to mongodb')
-})
-
 // Add routes, both API, view, and Auth Routes
 app.use(routes);
+
+
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
