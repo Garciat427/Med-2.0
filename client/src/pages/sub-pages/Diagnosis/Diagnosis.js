@@ -64,6 +64,7 @@ class Diagnosis extends Component {
 
       this.setState({ [event.target.name]: event.target.value })
    }
+   
    handleSymptomsSelect = (event) => {
       console.log (event.target.value)
       let strSymptoms
