@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TextInput, Button } from 'react-materialize';
+import { TextInput, Button, Autocomplete } from 'react-materialize';
 
 class AboutMeForm extends Component {
    render(){
@@ -73,13 +73,28 @@ class AboutMeForm extends Component {
                   >
                      <i class="far fa-compass"></i>
                   </span>
-                  <TextInput 
-                     value = {this.props.city} 
-                     onChange = {this.props.handleInputChange} 
+
+                  <input
+                     className="autocomplete"
+                     id="autocomplete-input"
+                     type="text"
+                     /* options={{data:{Apple:null}}}
+                     placeholder="City" */
+                     value = {this.props.currentLoc}  
+                     onChange = {this.props.handleLocChange}
                      name = "currentLoc" 
                      label="Location"
                      validate = {true}
-                     s = {11} 
+                  />
+                  <TextInput
+                     /* options={{data:{Apple:null}}}
+                     placeholder="City" */
+                     value = {this.props.currentLoc} 
+                     onChange = {this.props.handleLocChange}
+                     name = "currentLoc" 
+                     label="Location"
+                     validate = {true}
+                     s = {11}
                   />
                </div>
 

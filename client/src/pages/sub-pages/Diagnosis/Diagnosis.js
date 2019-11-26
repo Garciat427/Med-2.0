@@ -5,6 +5,7 @@ import AboutMeForm from "./AboutMeForm"
 import BodyLocationForm from "./BodyLocationForm"
 import SymptomsForm from "./SymptomsForm"
 import DiagnoseSymptoms from "./DiagnoseSymptoms"
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 
 //Route Dependencies
@@ -14,10 +15,12 @@ import googleApi from "../../../utils/googleApi"
 class Diagnosis extends Component {
    state = {
       /* General States */
-      posLat:"",
-      posLng:"",
+      posLat: "",
+      posLng: "",
       currentLoc: "",
+      suggestedLoc: "",
       symptomsSelObj: [],
+
 
       /* About Me Page */
       AboutMeForm: true,
@@ -25,7 +28,7 @@ class Diagnosis extends Component {
       lastName: "",
       birthYear: "",
       gender: "",
-      
+
       /* Body Locations Page */
       imageRoute: "assets/images/BodyVectors/Empty.png",
       locations: [],
@@ -45,6 +48,27 @@ class Diagnosis extends Component {
       /* Diagnosis Page */
       DiagnosisForm: false,
       diagnosis: []
+   }
+
+   findLocation = () => {
+      console.log("Find Location")
+      navigator.geolocation.getCurrentPosition((position) => {
+         //Send Location to State
+         this.setState({ posLat: position.coords.latitude })
+         this.setState({ posLng: position.coords.longitude })
+         console.log(this.state.posLat)
+         //Geocode Location to Find City
+         googleApi.cordToCity(this.state.posLat, this.state.posLng)
+            .then((res) => {
+               console.log(res.data.results[0])
+               this.setState({ currentLoc: res.data.results[0].formatted_address })
+            })
+      });
+   }
+
+   handleLocChange = (event) => {
+      this.setState({ currentLoc: event.target.value })
+      //let autoComplete = new google.maps.places.Autocomplete(this.state.currentLoc)
    }
 
    handleInputChange = (event) => {
@@ -72,21 +96,6 @@ class Diagnosis extends Component {
       this.setState({ [event.target.name]: event.target.value })
    }
 
-   findLocation = () => {
-      console.log("Find Location")
-      navigator.geolocation.getCurrentPosition( (position) => {
-         //Send Location to State
-         this.setState({ posLat: position.coords.latitude })
-         this.setState({ posLng: position.coords.longitude })
-         console.log(this.state.posLat)
-         //Geocode Location to Find City
-         googleApi.cordToCity(this.state.posLat, this.state.posLng) 
-         .then ((res) => {
-            console.log(res.data.results[0])
-            this.setState({ currentLoc: res.data.results[0].formatted_address }) 
-         })
-      });
-   }
    handleSymptomsSelect = (event) => {
       console.log(event.target.value)
       let strSymptoms
@@ -229,7 +238,8 @@ class Diagnosis extends Component {
                lastName={this.state.lastName}
                birthYear={this.state.birthYear}
                gender={this.state.gender}
-               city={this.state.currentLoc}
+               currentLoc={this.state.currentLoc}
+               handleLocChange={this.handleLocChange}
                findLocation={this.findLocation}
             />
          )
