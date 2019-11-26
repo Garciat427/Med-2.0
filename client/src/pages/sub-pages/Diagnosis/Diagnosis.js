@@ -18,6 +18,7 @@ class Diagnosis extends Component {
       lastName: "",
       birthYear: "",
       gender: "",
+      city: "",
 
       /* Body Locations Page */
       imageRoute : "assets/images/BodyVectors/Empty.png",
@@ -32,6 +33,7 @@ class Diagnosis extends Component {
       bodySymp: true,
       symptoms: [],
       symptomsSel: [],
+      symptomsSelObj: [],
       minPassed: false,
       maxPassed: false,
 
@@ -88,10 +90,23 @@ class Diagnosis extends Component {
 
 
       } else { //Select Symptoms Button
-         //Collect Selected Symptoms
+         /* ---------- Collect Selected Symptoms ---------- */
+         //set current array to variable
          let sympArr = this.state.symptomsSel
+         let sympArrObj =  this.state.symptomsSelObj
+
+         let selSymptomObj = {
+            "id": event.target.value,
+            "name": event.target.name
+         }
+         //Push Symptom id and obj in respective arrays
          sympArr.push(event.target.value)
+         sympArrObj.push(selSymptomObj)
+
+         //Set new to state with updated information
          this.setState({ symptomsSel: sympArr })
+         this.setState({ symptomsSelObj: sympArrObj })
+         console.log (this.state.symptomsSelObj)
          
 
          //Get New Proposed Symptoms
@@ -193,6 +208,7 @@ class Diagnosis extends Component {
                lastName={this.state.lastName}
                birthYear={this.state.birthYear}
                gender={this.state.gender}
+               city={this.state.city}
             />
          )
       } else if (this.state.BodyLocationForm) {

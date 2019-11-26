@@ -66,10 +66,22 @@ class AboutMeForm extends Component {
                </div>
 
                <div className="row">
+                  {/* Location */}
+                  <TextInput 
+                     value = {this.props.city} 
+                     onChange = {this.props.handleInputChange} 
+                     name = "city" 
+                     label="Location"
+                     validate = {true}
+                     s = {12} 
+                  />
+               </div>
+
+               <div className="row">
                   <div className = "col s12 center">
                      <Button 
                      className= "deep-purple lighten-1 hoverable"
-                     disabled={!(this.props.gender && this.props.birthYear)}
+                     disabled={!(this.props.gender && this.props.birthYear && this.props.city)}
                      type="submit" 
                      waves="light" 
                      style={{marginRight: '5px'}}>
