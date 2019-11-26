@@ -27,7 +27,8 @@ class SymptomsForm extends Component {
                            waves="light"
                            style={{ margin: '5px' }}
                            key={symptom.ID}
-                           value={symptom.ID}>
+                           value={symptom.ID}
+                           name={symptom.Name}>
                            {symptom.Name}
                         </button>
                      ))}

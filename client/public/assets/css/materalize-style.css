@@ -66,3 +66,7 @@ body {
 .dropdown-content li > span{
   color: #311b92 !important;
 }
+
+::placeholder {
+  color: #757575;
+}
