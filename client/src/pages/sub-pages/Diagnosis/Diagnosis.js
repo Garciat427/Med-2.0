@@ -9,19 +9,25 @@ import DiagnoseSymptoms from "./DiagnoseSymptoms"
 
 //Route Dependencies
 import API from "../../../utils/API"
+import googleApi from "../../../utils/googleApi"
 
 class Diagnosis extends Component {
    state = {
+      /* General States */
+      posLat:"",
+      posLng:"",
+      currentLoc: "",
+      symptomsSelObj: [],
+
       /* About Me Page */
       AboutMeForm: true,
       firstName: "",
       lastName: "",
       birthYear: "",
       gender: "",
-      city: "",
-
+      
       /* Body Locations Page */
-      imageRoute : "assets/images/BodyVectors/Empty.png",
+      imageRoute: "assets/images/BodyVectors/Empty.png",
       locations: [],
       bodyLocationType: "General Body Location",
       selLocation: "",
@@ -33,7 +39,6 @@ class Diagnosis extends Component {
       bodySymp: true,
       symptoms: [],
       symptomsSel: [],
-      symptomsSelObj: [],
       minPassed: false,
       maxPassed: false,
 
@@ -46,7 +51,7 @@ class Diagnosis extends Component {
       this.setState({ [event.target.name]: event.target.value })
    }
    handleInputBodyLoc = (event) => {
-      if (this.state.BodyGen){
+      if (this.state.BodyGen) {
          let imgPath
          if (event.target.value == 16) {
             imgPath = "assets/images/BodyVectors/APB.png"
@@ -66,13 +71,29 @@ class Diagnosis extends Component {
 
       this.setState({ [event.target.name]: event.target.value })
    }
+
+   findLocation = () => {
+      console.log("Find Location")
+      navigator.geolocation.getCurrentPosition( (position) => {
+         //Send Location to State
+         this.setState({ posLat: position.coords.latitude })
+         this.setState({ posLng: position.coords.longitude })
+         console.log(this.state.posLat)
+         //Geocode Location to Find City
+         googleApi.cordToCity(this.state.posLat, this.state.posLng) 
+         .then ((res) => {
+            console.log(res.data.results[0])
+            this.setState({ currentLoc: res.data.results[0].formatted_address }) 
+         })
+      });
+   }
    handleSymptomsSelect = (event) => {
-      console.log (event.target.value)
+      console.log(event.target.value)
       let strSymptoms
       //If Get Diag Button was Pressed
       if (event.target.value === "GetDiag") {
-      strSymptoms = JSON.stringify(this.state.symptomsSel)
-      console.log("Test")
+         strSymptoms = JSON.stringify(this.state.symptomsSel)
+         console.log("Test")
          //Get Diagnosis
          API.getDiagSel(this.state.gender, this.state.birthYear,
             strSymptoms)
@@ -91,9 +112,9 @@ class Diagnosis extends Component {
 
       } else { //Select Symptoms Button
          /* ---------- Collect Selected Symptoms ---------- */
-         //set current array to variable
+         //Set current array to variable
          let sympArr = this.state.symptomsSel
-         let sympArrObj =  this.state.symptomsSelObj
+         let sympArrObj = this.state.symptomsSelObj
 
          let selSymptomObj = {
             "id": event.target.value,
@@ -106,8 +127,8 @@ class Diagnosis extends Component {
          //Set new to state with updated information
          this.setState({ symptomsSel: sympArr })
          this.setState({ symptomsSelObj: sympArrObj })
-         console.log (this.state.symptomsSelObj)
-         
+         console.log(this.state.symptomsSelObj)
+
 
          //Get New Proposed Symptoms
          strSymptoms = JSON.stringify(this.state.symptomsSel)
@@ -118,8 +139,8 @@ class Diagnosis extends Component {
                //Place new Symptoms in symptoms State
                this.setState({ symptoms: res.data })
                console.log(this.state.symptoms)
-               if (!this.state.minPassed){
-                  if (this.state.symptomsSel.length >= 2){
+               if (!this.state.minPassed) {
+                  if (this.state.symptomsSel.length >= 2) {
                      this.setState({ minPassed: true })
                   }
                }
@@ -208,7 +229,8 @@ class Diagnosis extends Component {
                lastName={this.state.lastName}
                birthYear={this.state.birthYear}
                gender={this.state.gender}
-               city={this.state.city}
+               city={this.state.currentLoc}
+               findLocation={this.findLocation}
             />
          )
       } else if (this.state.BodyLocationForm) {

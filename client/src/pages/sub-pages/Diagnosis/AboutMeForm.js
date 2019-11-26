@@ -51,12 +51,12 @@ class AboutMeForm extends Component {
                      <select 
                         name = "gender" 
                         label="Gender (Required)"
-                        value = {this.props.gender} 
+                        defaultValue="Choose a Gender"
                         onChange = {this.props.handleInputChange} 
-                        validate = {true}
+                        validate = {"true"}
                         className="textColor"
                      >
-                        <option selected disabled value="">Choose a Gender</option>
+                        <option disabled>Choose a Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                         <option value="male">Other</option>
@@ -67,13 +67,19 @@ class AboutMeForm extends Component {
 
                <div className="row">
                   {/* Location */}
+                  <span 
+                  className="btn-floating btn-large waves-effect waves-light deep-purple lighten-1"
+                  onClick={this.props.findLocation}
+                  >
+                     <i class="far fa-compass"></i>
+                  </span>
                   <TextInput 
                      value = {this.props.city} 
                      onChange = {this.props.handleInputChange} 
-                     name = "city" 
+                     name = "currentLoc" 
                      label="Location"
                      validate = {true}
-                     s = {12} 
+                     s = {11} 
                   />
                </div>
 
