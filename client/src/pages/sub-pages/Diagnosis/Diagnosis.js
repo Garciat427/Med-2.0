@@ -90,7 +90,6 @@ class Diagnosis extends Component {
 
       this.setState({ [event.target.name]: event.target.value })
    }
-
    handleSymptomsSelect = (event) => {
       let strSymptoms
       //If Get Diag Button was Pressed

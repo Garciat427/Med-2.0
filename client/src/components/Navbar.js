@@ -10,7 +10,7 @@ function Navbar() {
             <a href="/" class="brand-logo center" ><i class="large material-icons left headerLogo">healing</i>MED 2.0</a>
             <ul class="right">
                <li><a href="badges.html"><i class="material-icons left">view_module</i>Presentation</a></li>
-               <li><a href="badges.html"><i class="material-icons left">touch_app</i>Login</a></li>
+               <li><a href="/login"><i class="material-icons left">touch_app</i>Login</a></li>
             </ul>
          </div>
       </nav>
