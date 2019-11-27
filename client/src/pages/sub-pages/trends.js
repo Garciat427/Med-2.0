@@ -5,7 +5,7 @@ import Helper from "../../utils/Helper";
 import TrendsForm from "./Trends/TrendsForm";
 import TrendsMap from "./Trends/TrendsMap";
 import TrendsChart from "../../components/DiagnosisRatioTable";
-import { set } from "mongoose";
+//import { set } from "mongoose";
 
 let rendermap;
 
