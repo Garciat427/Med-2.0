@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import {createStore} from 'redux';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
-const store = createStore
+import rootReducer from './reducers/rootReducer'
+
+const store = createStore(rootReducer)
 
 ReactDOM.render(<Navbar /> , document.getElementById("rootNavbar"));
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root"));
 ReactDOM.render(<Footer />, document.getElementById("rootFooter"));

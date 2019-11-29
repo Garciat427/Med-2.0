@@ -2,8 +2,9 @@
 
 // -------------------- Import Dependencies --------------------------------
 // React Dependencies
-import React from "react";
+import React , { Component }from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 
 // Component Dependencies
 
@@ -14,30 +15,36 @@ import ErrorPage from "./sub-pages/ErrorPage";
 import Diagnosis from "./sub-pages/Diagnosis/Diagnosis";
 import login from "./sub-pages/Login"
 
-function MainApp() {
-    return (
-    <div>
-        <Router>
-            <Switch>
-                {/* Root Path - HomePage */}
-                <Route exact path="/" component={Home} />
 
-                {/* /Login - login Page */}   
-                <Route exact path="/login" component={login} />   
+class MainApp extends Component {
+    // Check query string for authToken
+    
+    
+    render(){
+        return (
+            <div>
+                <Router>
+                    <Switch>
+                        {/* Root Path - HomePage */}
+                        <Route exact path="/" component={Home} />
 
-                {/* /Diagnosis Paths - Diagnosis Page */}   
-                <Route exact path="/diagnosis" component={Diagnosis} />
-                
+                        {/* /Login - login Page */}   
+                        <Route exact path="/login" component={login} />   
 
-                {/* /Trends Path - Trends Page */}   
-                <Route exact path="/trends" component={Trends} />   
-            
-                {/* If No Route match - Display Error Page */}
-                <Route component={ErrorPage} />
-            </Switch> 
-        </Router>
-    </div>
-    );
+                        {/* /Diagnosis Paths - Diagnosis Page */}   
+                        <Route exact path="/diagnosis" component={Diagnosis} />
+                        
+
+                        {/* /Trends Path - Trends Page */}   
+                        <Route exact path="/trends" component={Trends} />   
+                    
+                        {/* If No Route match - Display Error Page */}
+                        <Route component={ErrorPage} />
+                    </Switch> 
+                </Router>
+            </div>
+        );
+    }
 }
 
 export default MainApp;

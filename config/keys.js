@@ -5,5 +5,8 @@ module.exports ={
    },
    session: {
       cookieKey:'ImAwesomeBtw'
+   },
+   mongo:{
+      URI:"mongodb+srv://admin:Password@cluster0-nncac.mongodb.net/test?retryWrites=true&w=majority"
    }
 }

@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import PieChart from "../../components/PieChart";
 import API from "../../utils/API";
 import Helper from "../../utils/Helper";
+import queryString from "query-string";
+
+//Redux
+import {connect} from 'react-redux'
 
 class Home extends Component {
     state = {
@@ -11,6 +15,14 @@ class Home extends Component {
         },
         rawData: []
     };
+
+    componentWillMount() {
+        var query = queryString.parse(this.props.location.search);
+        if (query.token) {
+          window.localStorage.setItem("jwt", query.token);
+          this.props.history.push("/");
+       }
+    }
 
     componentDidMount() {
 
@@ -50,6 +62,7 @@ class Home extends Component {
 
 
     render() {
+        console.log(this.props.posts)
         return (
             <div className="container">
                 <div className="row">
@@ -84,4 +97,10 @@ class Home extends Component {
 
 }
 
-export default Home;
+const mapStateToProps = (state) => {
+    return {
+        posts: state.posts
+    }
+}
+
+export default connect(mapStateToProps)(Home);

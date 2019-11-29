@@ -20,11 +20,11 @@ router.get(
 
 //Callback route for google
 router.get('/google/callback/',
-   passport.authenticate('google'), 
+   passport.authenticate('google', { failureRedirect: "/", session: false }), 
    (req, res) => {
       console.log(req.user)
-      var name = req.user.username;
-      res.redirect("http://localhost:3000?name=" + name);
+      var token = req.user.token;
+      res.redirect("http://localhost:3000?token=" + token);
    }
 )
 
