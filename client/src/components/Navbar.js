@@ -12,9 +12,6 @@ function Navbar() {
                     <ul class="right">
                         <li><a href="badges.html"><i class="material-icons left">view_module</i>Presentation</a></li>
                         <li><a href="badges.html"><i class="material-icons left">touch_app</i>Login</a></li>
-
-
-                        
                     </ul>
                 </div>
             </nav>
