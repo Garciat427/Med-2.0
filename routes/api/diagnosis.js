@@ -20,7 +20,7 @@ router
   .route("/cityDiagnosisRatio/:name/weeks-back/:weeks")
   .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
 
-  router
+router
   .route("/cityDiagnosisRatio/all/weeks-back/:weeks")
   .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
 
@@ -28,6 +28,12 @@ router
 router
   .route("/distinct-diagnosis/")
   .get(diagnosisController.getDistinctDiagnosis);
+
+
+router
+  .route("/path/name/:name/days/:days")
+  .get(diagnosisController.getDiagnosisPath);
+
 
 
 module.exports = router;

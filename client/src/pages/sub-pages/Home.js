@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PieChart from "../../components/PieChart";
+import LineChart from "../../components/LineChart"
 import API from "../../utils/API";
 import Helper from "../../utils/Helper";
 
@@ -59,7 +60,7 @@ class Home extends Component {
                             labels={this.state.chartData.labels}
                             chartData={this.state.chartData.data}
                         />
-          
+
                     </div>
                     <div className="col s4">
                         <h3>Welcome to Med 2.0</h3>

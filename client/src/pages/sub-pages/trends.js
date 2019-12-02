@@ -5,11 +5,20 @@ import Helper from "../../utils/Helper";
 import TrendsForm from "./Trends/TrendsForm";
 import TrendsMap from "./Trends/TrendsMap";
 import TrendsChart from "../../components/DiagnosisRatioTable";
-import { set } from "mongoose";
 
 let rendermap;
 
 class Trends extends Component {
+
+    state = {
+        city: "",
+        disease: "",
+        rendermap: false,
+        percentageData: [],
+        cityList: [],
+        diagnosisList: []
+
+    }
 
     callAPI(cityName) {
         // Call the API to load the pie chart
@@ -29,14 +38,20 @@ class Trends extends Component {
             .catch(err => console.log(err));
     }
 
-    state = {
-        city: "",
-        disease: "",
-        rendermap: false,
-        percentageData: []
+    updateCityList(cityListInput) {
+        let newState = new Helper().cloneObject(this.state);
+        newState.cityList = cityListInput;
+        this.setState(newState);
+    }
+
+    updateDiagnosisList(diagnosisListInput) {
+        let newState = new Helper().cloneObject(this.state);
+        newState.diagnosisList = diagnosisListInput;
+        this.setState(newState);
     }
 
     handleInputChange = event => {
+        console.log("ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
         console.log(event.target);
         console.log(event.target.name);
         console.log(event.target.value);
@@ -48,7 +63,6 @@ class Trends extends Component {
         this.setState({
             [name]: value
         });
-
     };
 
 
@@ -72,19 +86,23 @@ class Trends extends Component {
 
 
     render() {
+        console.log("*** render Trends start ***");
+
+        console.log(this.state.city);
+        console.log(this.state.disease);
+        console.log("*** render Trends end ***");
+
         return (
             <div>
                 <div className="container">
                     <h5> Have a look at various diagnosis trends </h5>
                 </div>
-                <TrendsForm city={this.state.city} disease={this.state.disease} rendermap={this.state.rendermap} change={this.handleInputChange}
+                <TrendsForm
+                    city={this.state.city}
+                    disease={this.state.disease}
+                    rendermap={this.state.rendermap}
+                    change={this.handleInputChange}
                     handleFormSubmit={this.handleFormSubmit} />
-
-                {/* {this.state.rendermap ?<TrendsChart rawData={this.state.percentageData} /> : null} */}
-                {/* {this.state.rendermap ? <TrendsMap /> : null} */}
-                {/* <TrendsChart 
-                        cityName = {this.state.city}
-                    /> */}
 
                 <TrendsChart rawData={this.state.percentageData} />
             </div>

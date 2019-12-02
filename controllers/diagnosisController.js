@@ -18,7 +18,34 @@ module.exports = {
             .catch(err => res.status(422).json(err));
 
     },
+    getDiagnosisPath: (req, res) => {
 
+        const daysParam = req.params.days.toUpperCase();
+        const diagnosisParam = req.params.name.toUpperCase();
+        let diagnosisSearchLine = ((req.params.name.toUpperCase() == "ALL") ? '' : 'and d.name = :diagnosisName');
+
+        let query = `select r.id, r.latitude, r.longitude, r.city, d.name as diagnosisName, d.apiMedicIssueID, MIN(r.createdAt) as diagnosisStartDateTime
+        from records as r inner join diagnoses as d on r.id = d.recordId	
+        where d.createdAt  > date_sub(now(), interval :days day)
+        ${diagnosisSearchLine}
+        and d.isPrimaryDiagnosis=1
+        group by r.city;`
+
+        db.sequelize
+            .query(query, {
+                replacements: {
+                    days: daysParam,
+                    diagnosisName: diagnosisParam
+                },
+                type: db.sequelize.QueryTypes.SELECT
+            })
+            .then(dbModel => {
+                // getListOfCitiesPath(dbModel);
+                res.json(dbModel);
+            })
+            .catch(err => res.status(422).json(err));
+
+    },
     findAll_DiagnosisInCityInPastWeeks: function (req, res) {
         const cityNameParam = req.params.name.toUpperCase();
         const weeksBackParam = req.params.weeks.toUpperCase();
@@ -27,7 +54,7 @@ module.exports = {
         console.log("finding all diagnosis by city name: " + cityNameParam);
 
         let query = `select r.latitude, r.longitude, r.city, d.name 
-        from Records as r inner join Diagnoses as d on r.id = d.RecordId 
+        from Records as r inner join Riagnoses as d on r.id = d.RecordID 
         where d.createdAt  > date_sub(now(), interval :weeksBack week)
         and r.city = :cityName
         and d.isPrimaryDiagnosis in(:isPrimaryDig);`
@@ -44,7 +71,6 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-
     findAll_DiagnosisInCityInPastWeeksRatio: function (req, res) {
 
         let query = "";
@@ -53,19 +79,18 @@ module.exports = {
         const isPrimaryParam = [1];
         let queryReplacementsData = {};
 
-
         // all is not entered in the city so this will get the entered city data
         if (req.params.name != "all") {
             query = `select r.city, d.name, count(1) as total, SUM(oneDigPercentPts) AS percentage
             from Records as r 
-            inner join Diagnoses as d on r.id = d.RecordId 
+            inner join Diagnoses as d on r.id = d.RecordID 
             CROSS JOIN 
             (
                     SELECT 100 / CAST(COUNT(1) AS DECIMAL(15,4)) AS oneDigPercentPts 
-                    FROM Diagnoses as d2 left join Records as r2 on d2.recordID = r2.id 
-                    WHERE r2.city = :cityName
+                    FROM Diagnoses as d2 left join Records as r2 on d2.RecordID = r2.id 
+                    WHERE d2.createdAt  > date_sub(now(), interval :weeksBack week
                     and d2.isPrimaryDiagnosis=:isPrimaryDig
-                    and d2.createdAt  > date_sub(now(), interval :weeksBack week)
+                    and  r2.city = :cityName )
             ) t
             where d.createdAt  > date_sub(now(), interval :weeksBack week)
             and r.city = :cityName
@@ -88,11 +113,11 @@ module.exports = {
 
             query = `select r.city, d.name, count(1) as total, SUM(oneDigPercentPts) AS percentage
             from Records as r 
-            inner join Diagnoses as d on r.id = d.RecordId 
+            inner join Diagnoses as d on r.id = d.RecordID 
             CROSS JOIN 
             (
                     SELECT 100 / CAST(COUNT(1) AS DECIMAL(15,4)) AS oneDigPercentPts 
-                    FROM Diagnoses as d2 left join Records as r2 on d2.recordID = r2.id 
+                    FROM Diagnoses as d2 left join Records as r2 on d2.RecordID = r2.id 
                     WHERE d2.isPrimaryDiagnosis=:isPrimaryDig
                     and d2.createdAt  > date_sub(now(), interval :weeksBack week)
             ) t
@@ -123,3 +148,34 @@ module.exports = {
         console.log("ToDo");
     }
 };
+
+
+// const getListOfCitiesPath = (rawCityDiagnosisList) => {
+
+//     let deltaList = rawCityDiagnosisList.map((element, index) => {
+//         if (index != 0) {
+//             if (element.city === rawCityDiagnosisList[index - 1].city &&
+//                 element.apiMedicIssueID === rawCityDiagnosisList[index - 1].apiMedicIssueID) {
+
+//                 let delta = element.createdAt - rawCityDiagnosisList[index - 1].createdAt;
+//                 return {
+//                     "city": element.city,
+//                     "diagnosis": element.name,
+//                     "deltaT": delta
+//                 };
+//             } else {
+//                 return {
+//                     "city": element.city,
+//                     "diagnosis": element.name,
+//                     "deltaT": 0
+//                 };
+//             }
+//         }
+//     });
+
+
+//     console.log(deltaList);
+
+//     return rawCityDiagnosisList;
+
+// };

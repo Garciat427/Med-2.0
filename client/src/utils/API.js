@@ -88,16 +88,22 @@ export default {
   ]
 */
   getAllRecords: function () {
-    return axios.get("/api/records");
+    return axios.get("api/records");
   },
 
-  
+  // Path
+  // 
+
+  getDiagnosisPath: function (cityName, days) {
+    return axios.get("api/diagnosis/path/name/" + cityName + "/days/" + days);
+  },
+
   /**************************************************************************** */
   /*************************** API Medic Calls Below  ***************************** */
   /**************************************************************************** */
 
   //*************************** Req 1 + 2 - Body Locations ***************************
-  
+
   //Req 1 - Get General Body Locations
   getBodyGen: () => {
     return axios.get("/api/apiMedic/bodyLoc");
@@ -115,19 +121,19 @@ export default {
       ex: "16" -> Abdomen, pelvis & buttocks
 
     Example reqUrl: /api/apiMedic/bodyLoc/16
-  */ 
+  */
 
 
-//*************************** Req 3 + 4 + n - Symptoms ***************************
+  //*************************** Req 3 + 4 + n - Symptoms ***************************
 
   //Req 3 - Get Symptoms based on Specific Body Location
   getBodySymp: (gender, birthYear, id) => {
-    return axios.get("/api/apiMedic/bodySymp/" + gender + "/" + birthYear + "/"+ id);
+    return axios.get("/api/apiMedic/bodySymp/" + gender + "/" + birthYear + "/" + id);
   },
 
   //Req 4 + n - Get Symptoms based on previous symptoms
   getSympSel: (gender, birthYear, symptoms) => {
-    return axios.get("/api/apiMedic/sympSel/" + gender + "/" + birthYear + "/"+ symptoms);
+    return axios.get("/api/apiMedic/sympSel/" + gender + "/" + birthYear + "/" + symptoms);
   },
 
   /*  
@@ -151,8 +157,8 @@ export default {
     Example req4+nUrl: /api/apiMedic/sympSel/male/1990/[10, 50]
   */
 
- getDiagSel: (gender, birthYear, symptoms) => {
-  return axios.get("/api/apiMedic/diagSel/" + gender + "/" + birthYear + "/"+ symptoms);
-},
+  getDiagSel: (gender, birthYear, symptoms) => {
+    return axios.get("/api/apiMedic/diagSel/" + gender + "/" + birthYear + "/" + symptoms);
+  },
 
 };

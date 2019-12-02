@@ -33,25 +33,8 @@ class TrendsForm extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="input-field col s6">
-                        <Select onChange={this.props.change} value={this.props.city} name="city" >
-                            <option value="" disabled>Choose your city></option>
-                            {this.state.records.map((records, index) => (
-                                <option key={records.city + index} value={records.city}>{records.city}</option>
-                            )
-                            )}
-                        </Select>
-                    </div>
 
-                    <div className="input-field col s6">
-                        <Select onChange={this.props.change} value={this.props.disease} name="disease">
-                            <option value="" disabled selected>Choose your disease></option>
-                            {this.state.diagnoses.map((diagnoses, index) => (
-                                <option key={diagnoses.name + index} value={diagnoses.name}>{diagnoses.name}</option>
-                            )
-                            )}
-                        </Select>
-                    </div>
+                    {this.formDropDown()}
                 </div>
                 <div className="row">
                     <button className="waves-effect waves-light btn col s2 left-align"
@@ -61,6 +44,45 @@ class TrendsForm extends React.Component {
             </div>
         );
     };
+
+    formDropDown() {
+        console.log("*** formDropDown start ***");
+        this.state.records.map((records, index) => (
+            console.log(records.city)
+        ));
+        this.state.diagnoses.map((diagnoses, index) => (
+            console.log(diagnoses.name)
+        ))
+        console.log("*** formDropDown End ***");
+
+
+        return (
+            <div>
+
+                <div className="input-field col s6">
+                    <select onChange={this.props.change} value={this.props.city} name="city" >
+                        <option value="" disabled >Choose your city</option>
+                        {this.state.records.map((records, index) => (
+                            <option key={records.city + index} value={records.city}>{records.city}</option>
+                        ))}
+                    </select>
+                </div>
+
+
+
+                <div className="input-field col s6">
+                    <select onChange={this.props.change} value={this.props.disease} name="disease">
+                        <option value="" disabled >Choose your disease</option>
+                        {this.state.diagnoses.map((diagnoses, index) => (
+                            <option key={diagnoses.name + index} value={diagnoses.name}>{diagnoses.name}</option>
+                        ))}
+                    </select>
+                </div>
+
+            </div>
+        );
+    }
+
 }
 
 export default TrendsForm;
