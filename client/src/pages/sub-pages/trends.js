@@ -87,6 +87,7 @@ class Trends extends Component {
                     /> */}
 
                 <TrendsChart rawData={this.state.percentageData} />
+                <TrendsMap />
             </div>
         )
     }
