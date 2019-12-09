@@ -33,7 +33,6 @@ export default {
       */
   saveRecords: function (recordSymptomDiagnosisData) {
     return axios.post("/api/records", recordSymptomDiagnosisData);
-
   },
 
   /* PIE CHART: the following API calls can be used for Pie Chart. Example response
@@ -46,9 +45,16 @@ export default {
       }
     ]
     */
-  getAllPrimaryDiagnosisInCityInPastWeekPercentage: function (cityName) {
-    return axios.get("api/diagnosis/cityDiagnosisRatio/" + cityName + "/weeks-back/1");
+  getAllPrimaryDiagnosisInCityInPastDaysPercentage: function (cityName, diagnosisName, numberOfDays) {
+    return axios.get("api/diagnosis/cityDiagnosisRatio/" + cityName +"/diagnosisName/"+diagnosisName+ "/days-back/" + numberOfDays);
   },
+
+
+  getDiagnosisPath: function (diagnosisName, numberOfDays) {
+    return axios.get("/api/diagnosis/path/name/" + diagnosisName + "/days/" + numberOfDays);
+    // api/diagnosis/path/name/all/days/30
+  },
+
 
 
   /* TRENDS DATA: the following API calls can be used for trends page. Example response
@@ -89,13 +95,6 @@ export default {
 */
   getAllRecords: function () {
     return axios.get("api/records");
-  },
-
-  // Path
-  // 
-
-  getDiagnosisPath: function (cityName, days) {
-    return axios.get("api/diagnosis/path/name/" + cityName + "/days/" + days);
   },
 
   /**************************************************************************** */
