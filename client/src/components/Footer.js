@@ -23,7 +23,7 @@ function Footer() {
                         This project was inspired by the Sustainable Developmental Goals provided by the UN
                      </p>
                      <p className="grey-text text-lighten-4 valign-wrapper buttonLink">
-                        <i class="link-Footer fas fa-flag"></i> Click here to learn more
+                        <i className="link-Footer fas fa-flag"></i> Click here to learn more
                      </p>
                   </a>
                </div>
@@ -41,10 +41,10 @@ function Footer() {
                </div>
             </div>
          </div>
-         <div class="footer-copyright">
-            <div class="container">
+         <div className="footer-copyright">
+            <div className="container">
                © 2019 Copyright Med 2.0
-            <a class="grey-text text-lighten-4 right buttonLink" href="https://materializecss.com/">This site was developed using the Materalize Framework</a>
+            <a className="grey-text text-lighten-4 right buttonLink" href="https://materializecss.com/">This site was developed using the Materalize Framework</a>
             </div>
          </div>
       </div>

@@ -1,92 +1,225 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import Helper from "../../utils/Helper";
-//import { Link } from "react-router-dom";
 import TrendsForm from "./Trends/TrendsForm";
+import GraphBase from "../../components/GraphBase";
 import TrendsMap from "./Trends/TrendsMap";
-import TrendsChart from "../../components/DiagnosisRatioTable";
-//import { set } from "mongoose";
+import Path from "../../components/Path";
+
 
 let rendermap;
 
 class Trends extends Component {
 
-    callAPI(cityName) {
-        // Call the API to load the pie chart
-        API.getAllPrimaryDiagnosisInCityInPastWeekPercentage(cityName)
+    state = {
+        // input data
+        city: "all", // the city to show the data to
+        disease: "all", // the diagnosis to show
+        numberOfDaysRange: 30, // the time range in days
+
+        // lookup data
+        cityList: [], // distinct cityList
+        diagnosisList: [], // distinct diagnosis name
+
+        // result set data from API call
+        pieChartData: {
+            labels: [],
+            data: [],
+        },
+
+        // path data
+        pathDataPoints: [],
+        pathDataPointsDetails: []
+
+    }
+
+    componentDidMount() {
+        this.loadDistinctLookupData();
+        this.getRatioAPICall();
+        this.getPathAPICall();
+    }
+
+    loadDistinctLookupData = () => {
+        /* Temp Arrays */
+        let cityListResult = [];
+        let diagnosisListResult = [];
+
+        /* API Calls */
+        API.getDistinctDiagnosis()
+            .then(resDignosis => {
+                diagnosisListResult = resDignosis.data;
+
+                /* Call Cities API */
+                API.getDistinctCities()
+                    .then(resCities => {
+                        cityListResult = resCities.data
+
+                        /* Set States with Temp Vars */
+                        this.setState({ cityList: cityListResult });
+                        this.setState({ diagnosisList: diagnosisListResult });
+
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(err => console.log(err));
+    }
+
+    getRatioAPICall() {
+        API.getAllPrimaryDiagnosisInCityInPastDaysPercentage(this.state.city, this.state.disease, this.state.numberOfDaysRange)
             .then(res => {
 
+
+                let labelsIn = [];
+                let dataIn = [];
+                let cityIn = [];
+                let diagnosesIn = [];
                 let rawDataIn = [];
 
-                (res.data).forEach((element) => {
+                (res.data).forEach((element, index) => {
+                    let p = Math.round(parseFloat(element.percentage));
+                    labelsIn.push("" + element.city + ": " + element.name);
+                    dataIn.push(p);
+                    cityIn.push(element.city);
+                    diagnosesIn.push(element.name);
                     rawDataIn.push(element);
                 });
 
+                let newChartData = {
+                    labels: labelsIn,
+                    data: dataIn,
+                    cities: cityIn,
+                    diagnoses: diagnosesIn
+                }
+                console.log(newChartData);
                 let newState = new Helper().cloneObject(this.state);
-                newState.percentageData = rawDataIn;
+                newState.pieChartData.labels = newChartData.labels;
+                newState.pieChartData.data = newChartData.data;
+
                 this.setState(newState);
+
             })
             .catch(err => console.log(err));
     }
 
-    state = {
-        city: "",
-        disease: "",
-        rendermap: false,
-        percentageData: []
-    }
 
-    handleInputChange = event => {
-        console.log(event.target);
-        console.log(event.target.name);
-        console.log(event.target.value);
-        console.log("handle input change");
-        // Getting the value and name of the input which triggered the change
-        const { name, value } = event.target;
-
-        // Updating the input's state
-        this.setState({
-            [name]: value
-        });
-
-    };
-
-
-    handleFormSubmit = (event, city) => {
-        // Preventing the default behavior of the form submit (which is to refresh the page)
-        event.preventDefault();
-
-        //setState ()
-        API.getAllPrimaryDiagnosisInCityInPast4Weeks(this.state.city)
+    getPathAPICall() {
+        API.getDiagnosisPath(this.state.disease, this.state.numberOfDaysRange)
             .then(res => {
-                let newState = new Helper().cloneObject(this.state);
 
-                this.callAPI(this.state.city);
-                newState.renderMap = true;
+                let pathDetails = [];
+                let pathData = res.data.map((element, index) => {
+                    let date = new Helper().formatDateToString(Date.parse(element.diagnosisStartDateTime));
 
-                // this.setState({ records: res.data });
-                this.setState(newState);
+                    let point = {
+                        lat: parseFloat(element.latitude),
+                        long: parseFloat(element.longitude),
+                        disease: element.diagnosisName + " at " + date
+                    }
+
+                    let pointDetail = {
+                        lat: parseFloat(element.latitude),
+                        long: parseFloat(element.longitude),
+                        disease: element.diagnosisName + " in " + element.city + " at " + date
+                    }
+                    pathDetails.push(pointDetail);
+
+
+                    return point
+                })
+                this.setState({ pathDataPoints: pathData });
+                this.setState({ pathDataPointsDetails: pathDetails });
+
+
+                console.log("path:")
+                console.log(this.state.pathDataPoints);
+                console.log(this.state.pathDataPointsDetails);
             })
             .catch(err => console.log(err));
-    };
+    }
+
+
+    handleCityFilterClick = (event) => {
+        event.preventDefault();
+        console.log("handleCityFilterClick: " + event.target.value);
+        this.setState({ city: event.target.value });
+        this.getRatioAPICall();
+        this.getPathAPICall();
+
+    }
+
+    handleDiagnosisFilterClick = (event) => {
+        event.preventDefault();
+        console.log("handleDiagnosisFilterClick: " + event.target.value);
+        this.setState({ disease: event.target.value });
+        this.getRatioAPICall();
+        this.getPathAPICall();
+
+    }
+
+    handleTimeFilterChange = (event) => {
+        event.preventDefault();
+        console.log("handleTimeFilterChange: " + event.target.value);
+        this.setState({ numberOfDaysRange: event.target.value });
+        this.getRatioAPICall();
+        this.getPathAPICall();
+    }
+
 
 
     render() {
+
         return (
             <div>
+                {/* Header */}
                 <div className="container">
-                    <h5> Have a look at various diagnosis trends </h5>
+                    <h4 className="center">Stats and Trends for {this.state.numberOfDaysRange} days</h4>
                 </div>
-                <TrendsForm city={this.state.city} disease={this.state.disease} rendermap={this.state.rendermap} change={this.handleInputChange}
-                    handleFormSubmit={this.handleFormSubmit} />
 
-                {/* {this.state.rendermap ?<TrendsChart rawData={this.state.percentageData} /> : null} */}
-                {/* {this.state.rendermap ? <TrendsMap /> : null} */}
-                {/* <TrendsChart 
-                        cityName = {this.state.city}
-                    /> */}
+                {/* Form Data */}
+                <div className="row">
+                    <div className=" col s12">
+                        <TrendsForm
+                            city={this.state.city}
+                            disease={this.state.disease}
+                            rendermap={this.state.rendermap}
+                            handleCityClick={this.handleCityFilterClick}
+                            handleDiagnosisClick={this.handleDiagnosisFilterClick}
+                            handleSliderChange={this.handleTimeFilterChange}
+                            formParamaters={this.state.formParamaters}
+                            cityLookupList={this.state.cityList}
+                            diagnosisLookupList={this.state.diagnosisList}
+                        />
+                    </div>
+                </div>
+                {/* Graph  */}
+                <div className="row">
+                    <div className=" col s12">
+                        <GraphBase
+                            cityName={this.state.city}
+                            diagnosisName={this.state.disease}
+                            numberOfDaysRange={this.state.numberOfDaysRange}
+                            pieChartData={this.state.pieChartData}
+                            lineChartData={this.state.pieChartData}
 
-                <TrendsChart rawData={this.state.percentageData} />
+                        />
+                    </div>
+                </div>
+
+                {/* Map  */}
+                <div className="row">
+                    <div className=" col s12">
+                        <TrendsMap
+                            points={this.state.pathDataPoints}
+                            handlMapDataLoad={this.handleMapLoad}
+                        />
+                    </div>
+                </div>
+
+                <Path
+                    pathDataPointsDetails={this.state.pathDataPointsDetails}
+                />
+
+
             </div>
         )
     }

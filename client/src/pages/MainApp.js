@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Page Dependencies 
 import Home from "./sub-pages/Home";
-import Trends from "./sub-pages/trends";
+import Trends from "./sub-pages/Trends";
 import ErrorPage from "./sub-pages/ErrorPage";
 import Diagnosis from "./sub-pages/Diagnosis/Diagnosis";
 import login from "./sub-pages/Login"

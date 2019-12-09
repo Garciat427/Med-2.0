@@ -16,6 +16,18 @@ class Helper {
         return JSON.parse(JSON.stringify(obj));
     };
 
+    formatDateToString(dateIn) {
+        let date = new Date(dateIn);
+
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDay();
+        let hour = date.getHours();
+        let min = date.getMinutes();
+
+        return (`${year}-${month}-${day} at ${hour}:${min}`);
+    }
+
 }
 
 export default Helper
