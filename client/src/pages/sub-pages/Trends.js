@@ -32,7 +32,7 @@ class Trends extends Component {
         pathDataPointsDetails: []
 
     }
-
+ 
     componentDidMount() {
         this.loadDistinctLookupData();
         this.getRatioAPICall();
