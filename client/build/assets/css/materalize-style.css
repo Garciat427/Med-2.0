@@ -1,0 +1,68 @@
+/* Materalize styling page - For styles to change materalize library */
+
+/* Sticky footer */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+
+  }
+
+  
+  /* label color */
+.input-field label {
+  color: #616161 !important;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #311b92  !important;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #311b92  !important;
+  box-shadow: 0 1px 0 0 #311b92  !important;
+}
+/* valid color */
+.input-field input[type=text].valid {
+  border-bottom: 1px solid #4caf50 !important;
+  box-shadow: 0 1px 0 0 #4caf50 !important;
+}
+/* invalid color */
+.input-field input[type=text].invalid {
+  border-bottom: 1px solid #000 !important;
+  box-shadow: 0 1px 0 0 #000 !important;
+}
+
+/* label focus color */
+.input-field input[type=number]:focus + label {
+  color: #311b92  !important;
+}
+/* label underline focus color */
+.input-field input[type=number]:focus {
+  border-bottom: 1px solid #311b92  !important;
+  box-shadow: 0 1px 0 0 #311b92  !important;
+}
+/* valid color */
+.input-field input[type=number].valid {
+  border-bottom: 1px solid #4caf50 !important;
+  box-shadow: 0 1px 0 0 #4caf50 !important;
+}
+/* invalid color */
+.input-field input[type=number].invalid {
+  border-bottom: 1px solid #000 !important;
+  box-shadow: 0 1px 0 0 #000 !important;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #000 !important;
+}
+
+.dropdown-content li > span{
+  color: #311b92 !important;
+}

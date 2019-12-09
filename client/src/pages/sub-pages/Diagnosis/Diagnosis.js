@@ -5,13 +5,24 @@ import AboutMeForm from "./AboutMeForm"
 import BodyLocationForm from "./BodyLocationForm"
 import SymptomsForm from "./SymptomsForm"
 import DiagnoseSymptoms from "./DiagnoseSymptoms"
+import PlacesAutocomplete from 'react-places-autocomplete';
 
 
 //Route Dependencies
 import API from "../../../utils/API"
+import googleApi from "../../../utils/googleApi"
 
 class Diagnosis extends Component {
    state = {
+      /* General States */
+      posLat: "",
+      posLng: "",
+      currentLoc: "",
+      suggestedLoc: "",
+      symptomsSelObj: [],
+      city: "",
+
+
       /* About Me Page */
       AboutMeForm: true,
       firstName: "",
@@ -20,7 +31,7 @@ class Diagnosis extends Component {
       gender: "",
 
       /* Body Locations Page */
-      imageRoute : "assets/images/BodyVectors/Empty.png",
+      imageRoute: "assets/images/BodyVectors/Empty.png",
       locations: [],
       bodyLocationType: "General Body Location",
       selLocation: "",
@@ -40,11 +51,26 @@ class Diagnosis extends Component {
       diagnosis: []
    }
 
+   findLocation = () => {
+      console.log("Find Location")
+      navigator.geolocation.getCurrentPosition((position) => {
+         //Send Location to State
+         this.setState({ posLat: position.coords.latitude })
+         this.setState({ posLng: position.coords.longitude })
+         //Geocode Location to Find City
+         googleApi.cordToCity(this.state.posLat, this.state.posLng)
+            .then((res) => {
+               this.setState({ currentLoc: res.data.results[0].formatted_address })
+               this.setState({ city: "valid" })
+            })
+      });
+   }
+
    handleInputChange = (event) => {
       this.setState({ [event.target.name]: event.target.value })
    }
    handleInputBodyLoc = (event) => {
-      if (this.state.BodyGen){
+      if (this.state.BodyGen) {
          let imgPath
          if (event.target.value == 16) {
             imgPath = "assets/images/BodyVectors/APB.png"
@@ -65,19 +91,42 @@ class Diagnosis extends Component {
       this.setState({ [event.target.name]: event.target.value })
    }
    handleSymptomsSelect = (event) => {
-      console.log (event.target.value)
       let strSymptoms
       //If Get Diag Button was Pressed
       if (event.target.value === "GetDiag") {
-      strSymptoms = JSON.stringify(this.state.symptomsSel)
-      console.log("Test")
+         strSymptoms = JSON.stringify(this.state.symptomsSel)
          //Get Diagnosis
          API.getDiagSel(this.state.gender, this.state.birthYear,
             strSymptoms)
             .then(res => {
-               console.log(res.data)
                //Place new Symptoms in symptoms State
                this.setState({ diagnosis: res.data })
+   
+               /* Store diag for database */
+               let recordObj = {} //Temp Record Obj to push into db
+               let diagResults = [] //Temp Diag Array
+               this.state.diagnosis.forEach(diag => {
+                  let diagObj = {
+                     "id": diag.Issue.ID,
+                     "name": diag.Issue.Name,
+                     "accuracy": diag.Issue.Accuracy.toFixed(2)
+                  }
+                  diagResults.push(diagObj)
+               })
+               //Create Record Obj to send to DB
+               recordObj = {
+                  "type": {"birthYear": this.state.birthYear, "gender": this.state.gender},
+                  "city": this.state.currentLoc,   //String City
+                  "latitude": this.state.posLat,   //String Number
+                  "longitude": this.state.posLng,  //String Number
+                  "symptoms": this.state.symptomsSelObj, //Array of Objects
+                  "diagnosis": diagResults
+               }
+
+               //Save Record to db
+               API.saveRecords(recordObj)
+                  .then((res)=> {console.log(res.data)})
+
                //Set State of DiagnosisForm to True
                this.setState({ DiagnosisForm: true })
                //Set Symptoms Form to False to display DiagnoseSymptoms Page
@@ -88,11 +137,22 @@ class Diagnosis extends Component {
 
 
       } else { //Select Symptoms Button
-         //Collect Selected Symptoms
+         /* ---------- Collect Selected Symptoms ---------- */
+         //Set current array to variable
          let sympArr = this.state.symptomsSel
+         let sympArrObj = this.state.symptomsSelObj
+
+         let selSymptomObj = {
+            "id": event.target.value,
+            "name": event.target.name
+         }
+         //Push Symptom id and obj in respective arrays
          sympArr.push(event.target.value)
+         sympArrObj.push(selSymptomObj)
+
+         //Set new to state with updated information
          this.setState({ symptomsSel: sympArr })
-         
+         this.setState({ symptomsSelObj: sympArrObj })
 
          //Get New Proposed Symptoms
          strSymptoms = JSON.stringify(this.state.symptomsSel)
@@ -102,9 +162,8 @@ class Diagnosis extends Component {
             .then(res => {
                //Place new Symptoms in symptoms State
                this.setState({ symptoms: res.data })
-               console.log(this.state.symptoms)
-               if (!this.state.minPassed){
-                  if (this.state.symptomsSel.length >= 2){
+               if (!this.state.minPassed) {
+                  if (this.state.symptomsSel.length >= 2) {
                      this.setState({ minPassed: true })
                   }
                }
@@ -153,7 +212,6 @@ class Diagnosis extends Component {
             .then(res => {
                //Place Specific Locations in Locations State
                this.setState({ symptoms: res.data })
-               console.log(this.state.symptoms)
 
                //Set SymptomsForm To True
                this.setState({ SymptomsForm: true })
@@ -170,7 +228,6 @@ class Diagnosis extends Component {
             .then(res => {
                //Place Specific Locations in Locations State
                this.setState({ symptoms: res.data })
-               console.log(this.state.symptoms)
 
                //Set SymptomsForm To True
                this.setState({ SymptomsForm: true })
@@ -193,6 +250,9 @@ class Diagnosis extends Component {
                lastName={this.state.lastName}
                birthYear={this.state.birthYear}
                gender={this.state.gender}
+               currentLoc={this.state.currentLoc}
+               city={this.state.city}
+               findLocation={this.findLocation}
             />
          )
       } else if (this.state.BodyLocationForm) {
