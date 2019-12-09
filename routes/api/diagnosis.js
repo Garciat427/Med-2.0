@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const diagnosisController = require("../../controllers/diagnosisController");
 
+
 // Matches with "/api/diagnosis"
 router.route("/")
   .get(diagnosisController.findAll)
@@ -15,15 +16,10 @@ router
   .route("/city/:name/weeks-back/:weeks/is-primary/:isPrimary")
   .get(diagnosisController.findAll_DiagnosisInCityInPastWeeks);
 
-
+// if name is 'all', then this will return all cities.
 router
-  .route("/cityDiagnosisRatio/:name/weeks-back/:weeks")
-  .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
-
-router
-  .route("/cityDiagnosisRatio/all/weeks-back/:weeks")
-  .get(diagnosisController.findAll_DiagnosisInCityInPastWeeksRatio);
-
+  .route("/cityDiagnosisRatio/:cityName/diagnosisName/:diagnosisName/days-back/:days")
+  .get(diagnosisController.findAll_DiagnosisInCityInPastDaysRatio);
 
 router
   .route("/distinct-diagnosis/")

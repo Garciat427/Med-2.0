@@ -41,6 +41,7 @@ module.exports = {
             })
             .then(dbModel => {
                 // getListOfCitiesPath(dbModel);
+                console.log(dbModel);
                 res.json(dbModel);
             })
             .catch(err => res.status(422).json(err));
@@ -54,7 +55,7 @@ module.exports = {
         console.log("finding all diagnosis by city name: " + cityNameParam);
 
         let query = `select r.latitude, r.longitude, r.city, d.name 
-        from Records as r inner join Riagnoses as d on r.id = d.RecordID 
+        from Records as r inner join Diagnoses as d on r.id = d.RecordID 
         where d.createdAt  > date_sub(now(), interval :weeksBack week)
         and r.city = :cityName
         and d.isPrimaryDiagnosis in(:isPrimaryDig);`
@@ -71,16 +72,18 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    findAll_DiagnosisInCityInPastWeeksRatio: function (req, res) {
+    findAll_DiagnosisInCityInPastDaysRatio: function (req, res) {
 
         let query = "";
         let cityNameParam = "";
-        let weeksBackParam = "";
+        let daysBackParam = "";
         const isPrimaryParam = [1];
         let queryReplacementsData = {};
+        let diagnosisSearchLineOuterSelect = ((req.params.diagnosisName.toUpperCase() == "ALL") ? '' : 'and d.name = :diagnosisName');
+        let diagnosisSearchLineInnerSelect = ((req.params.diagnosisName.toUpperCase() == "ALL") ? '' : 'and d2.name = :diagnosisName');
 
         // all is not entered in the city so this will get the entered city data
-        if (req.params.name != "all") {
+        if (req.params.cityName != "all") {
             query = `select r.city, d.name, count(1) as total, SUM(oneDigPercentPts) AS percentage
             from Records as r 
             inner join Diagnoses as d on r.id = d.RecordID 
@@ -88,22 +91,26 @@ module.exports = {
             (
                     SELECT 100 / CAST(COUNT(1) AS DECIMAL(15,4)) AS oneDigPercentPts 
                     FROM Diagnoses as d2 left join Records as r2 on d2.RecordID = r2.id 
-                    WHERE d2.createdAt  > date_sub(now(), interval :weeksBack week
+                    WHERE d2.createdAt  > date_sub(now(), interval :daysBack day)
                     and d2.isPrimaryDiagnosis=:isPrimaryDig
-                    and  r2.city = :cityName )
+                    ${diagnosisSearchLineInnerSelect}
+                    and  r2.city = :cityName 
             ) t
-            where d.createdAt  > date_sub(now(), interval :weeksBack week)
+            where d.createdAt  > date_sub(now(), interval :daysBack day)
             and r.city = :cityName
             and d.isPrimaryDiagnosis=:isPrimaryDig
+            ${diagnosisSearchLineOuterSelect}
             group by r.city, d.name;`
 
-            cityNameParam = req.params.name.toUpperCase();
-            weeksBackParam = req.params.weeks.toUpperCase();
+            cityNameParam = req.params.cityName.toUpperCase();
+            daysBackParam = req.params.days.toUpperCase();
+            diagnosisNameParam = req.params.diagnosisName.toUpperCase();
 
             queryReplacementsData = {
                 cityName: cityNameParam,
-                weeksBack: weeksBackParam,
-                isPrimaryDig: isPrimaryParam
+                daysBack: daysBackParam,
+                isPrimaryDig: isPrimaryParam,
+                diagnosisName: diagnosisNameParam
             };
 
             console.log("finding all diagnosis by city name stats for Pie Chart: " + cityNameParam);
@@ -119,17 +126,23 @@ module.exports = {
                     SELECT 100 / CAST(COUNT(1) AS DECIMAL(15,4)) AS oneDigPercentPts 
                     FROM Diagnoses as d2 left join Records as r2 on d2.RecordID = r2.id 
                     WHERE d2.isPrimaryDiagnosis=:isPrimaryDig
-                    and d2.createdAt  > date_sub(now(), interval :weeksBack week)
+                    ${diagnosisSearchLineInnerSelect}
+                    and d2.createdAt  > date_sub(now(), interval :daysBack day)
             ) t
-            where d.createdAt  > date_sub(now(), interval :weeksBack week)
+            where d.createdAt  > date_sub(now(), interval :daysBack day)
             and d.isPrimaryDiagnosis=:isPrimaryDig
+            ${diagnosisSearchLineOuterSelect}
             group by r.city, d.name;`
 
-            weeksBackParam = req.params.weeks.toUpperCase();
+            daysBackParam = req.params.days.toUpperCase();
+            diagnosisNameParam = req.params.diagnosisName.toUpperCase();
+
 
             queryReplacementsData = {
-                weeksBack: weeksBackParam,
-                isPrimaryDig: isPrimaryParam
+                daysBack: daysBackParam,
+                isPrimaryDig: isPrimaryParam,
+                diagnosisName: diagnosisNameParam
+
             };
 
             console.log("finding all diagnosis for all cities stats for Pie Chart: ");
