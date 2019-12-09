@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PieChart from "../../components/PieChart";
-import LineChart from "../../components/LineChart"
 import API from "../../utils/API";
 import Helper from "../../utils/Helper";
 
@@ -16,7 +15,7 @@ class Home extends Component {
     componentDidMount() {
 
         // Call the API to load the pie chart
-        API.getAllPrimaryDiagnosisInCityInPastWeekPercentage("all")
+        API.getAllPrimaryDiagnosisInCityInPastDaysPercentage("all","all", 365)
             .then(res => {
 
                 let labelsIn = [];
@@ -26,8 +25,8 @@ class Home extends Component {
                 let rawDataIn = [];
 
                 (res.data).forEach((element, index) => {
-                    let p = parseFloat(element.percentage);
-                    labelsIn.push("[" + element.city + "] " + element.name);
+                    let p = Math.round(parseFloat(element.percentage));
+                    labelsIn.push("" + element.city + ": " + element.name);
                     dataIn.push(p);
                     cityIn.push(element.city);
                     diagnosesIn.push(element.name);
@@ -54,7 +53,7 @@ class Home extends Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col s8">
+                    <div className="col s8 center">
 
                         <PieChart
                             labels={this.state.chartData.labels}
