@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TableRow from "./TableRow";
-import API from "../../utils/API";
-import Helper from "../../utils/Helper";
+
 
 class DiagnosisRatioTable extends Component {
 
@@ -9,28 +8,6 @@ class DiagnosisRatioTable extends Component {
         rawData: []
     };
 
-    // componentDidMount() {
-    //     console.log (this.props.cityName);
-    //     this.callAPI(this.props.cityName);
-    // }
-
-    // callAPI(cityName) {
-    //     // Call the API to load the pie chart
-    //     API.getAllPrimaryDiagnosisInCityInPastWeekPercentage(cityName)
-    //         .then(res => {
-
-    //             let rawDataIn = [];
-
-    //             (res.data).forEach((element) => {
-    //                 rawDataIn.push(element);
-    //             });
-
-    //             let newState = new Helper().cloneObject(this.state);
-    //             newState.rawData = rawDataIn;
-    //             this.setState(newState);
-    //         })
-    //         .catch(err => console.log(err));
-    // }
 
     render() {
         // const items = this.state.rawData;

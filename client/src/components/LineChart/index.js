@@ -1,17 +1,29 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-// import "./style.css";
-import Helper from "../../utils/Helper";
 
 
 
 function LineChart(props) {
+  
+    const graphData = buildLineChartData(props.headerLabel, props.chartLabels, props.chartData)
 
-    const graphData = {
+    let LineChartToShow = (props.chartLabels.length > 0) ? <Line data={graphData} /> : <div className='center-align'>Sorry, No results were found.</div>;
+
+    return (
+        <div>
+            {LineChartToShow}
+        </div>
+    );
+
+}
+
+
+const buildLineChartData = (headerLabel, chartLabels, chartData) => {
+    const data = {
         labels: [],
         datasets: [
             {
-                label: 'Count of Diagnosis in the past 4 weeks',
+                label: '',
                 fill: false,
                 lineTension: 0.5,
                 backgroundColor: 'rgba(75,192,192,0.4)',
@@ -34,23 +46,11 @@ function LineChart(props) {
         ]
     };
 
-    console.log("input");
-    console.log(props.labels);
-    console.log(props.chartData);
+    data.labels = chartLabels;
+    data.datasets[0].label = headerLabel;
+    data.datasets[0].data = chartData;
 
-    graphData.labels = props.labels;
-    graphData.datasets.label = props.headerLabel;
-    graphData.datasets[0].data = props.chartData;
-
-
-    let LineChartToShow = (props.labels.length > 0) ? <Line data={graphData} /> : <div className='center-align'>Sorry, No results were found for the current city</div>;
-
-    return (
-        <div>
-            {LineChartToShow}
-        </div>
-    );
-
-}
+    return data;
+};
 
 export default LineChart;
