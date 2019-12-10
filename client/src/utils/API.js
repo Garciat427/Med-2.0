@@ -33,7 +33,6 @@ export default {
       */
   saveRecords: function (recordSymptomDiagnosisData) {
     return axios.post("/api/records", recordSymptomDiagnosisData);
-
   },
 
   /* PIE CHART: the following API calls can be used for Pie Chart. Example response
@@ -46,9 +45,16 @@ export default {
       }
     ]
     */
-  getAllPrimaryDiagnosisInCityInPastWeekPercentage: function (cityName) {
-    return axios.get("api/diagnosis/cityDiagnosisRatio/" + cityName + "/weeks-back/1");
+  getAllPrimaryDiagnosisInCityInPastDaysPercentage: function (cityName, diagnosisName, numberOfDays) {
+    return axios.get("api/diagnosis/cityDiagnosisRatio/" + cityName +"/diagnosisName/"+diagnosisName+ "/days-back/" + numberOfDays);
   },
+
+
+  getDiagnosisPath: function (diagnosisName, numberOfDays) {
+    return axios.get("/api/diagnosis/path/name/" + diagnosisName + "/days/" + numberOfDays);
+    // api/diagnosis/path/name/all/days/30
+  },
+
 
 
   /* TRENDS DATA: the following API calls can be used for trends page. Example response
@@ -88,16 +94,15 @@ export default {
   ]
 */
   getAllRecords: function () {
-    return axios.get("/api/records");
+    return axios.get("api/records");
   },
 
-  
   /**************************************************************************** */
   /*************************** API Medic Calls Below  ***************************** */
   /**************************************************************************** */
 
   //*************************** Req 1 + 2 - Body Locations ***************************
-  
+
   //Req 1 - Get General Body Locations
   getBodyGen: () => {
     return axios.get("/api/apiMedic/bodyLoc");
@@ -115,19 +120,19 @@ export default {
       ex: "16" -> Abdomen, pelvis & buttocks
 
     Example reqUrl: /api/apiMedic/bodyLoc/16
-  */ 
+  */
 
 
-//*************************** Req 3 + 4 + n - Symptoms ***************************
+  //*************************** Req 3 + 4 + n - Symptoms ***************************
 
   //Req 3 - Get Symptoms based on Specific Body Location
   getBodySymp: (gender, birthYear, id) => {
-    return axios.get("/api/apiMedic/bodySymp/" + gender + "/" + birthYear + "/"+ id);
+    return axios.get("/api/apiMedic/bodySymp/" + gender + "/" + birthYear + "/" + id);
   },
 
   //Req 4 + n - Get Symptoms based on previous symptoms
   getSympSel: (gender, birthYear, symptoms) => {
-    return axios.get("/api/apiMedic/sympSel/" + gender + "/" + birthYear + "/"+ symptoms);
+    return axios.get("/api/apiMedic/sympSel/" + gender + "/" + birthYear + "/" + symptoms);
   },
 
   /*  
@@ -151,8 +156,8 @@ export default {
     Example req4+nUrl: /api/apiMedic/sympSel/male/1990/[10, 50]
   */
 
- getDiagSel: (gender, birthYear, symptoms) => {
-  return axios.get("/api/apiMedic/diagSel/" + gender + "/" + birthYear + "/"+ symptoms);
-},
+  getDiagSel: (gender, birthYear, symptoms) => {
+    return axios.get("/api/apiMedic/diagSel/" + gender + "/" + birthYear + "/" + symptoms);
+  },
 
 };

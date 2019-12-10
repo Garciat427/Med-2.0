@@ -15,7 +15,7 @@ module.exports = {
     },
     getDistinctCities: (req, res) => {
 
-        let query = `SELECT DISTINCT r.city FROM records r`
+        let query = `SELECT DISTINCT r.city FROM Records r`
 
         db.sequelize
             .query(query, { type: db.sequelize.QueryTypes.SELECT })
