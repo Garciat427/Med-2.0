@@ -1,7 +1,6 @@
 import React from "react";
 
 function Path(props) {
-console.log();
 
     return (
         <div className="row">
