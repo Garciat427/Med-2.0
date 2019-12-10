@@ -32,8 +32,6 @@ function Footer() {
                      <h6 className="white-text">Team Links</h6>
                      <li className="footerLink"><a className="valign-wrapper grey-text text-lighten-3 buttonLink" href="https://github.com/arif2301"><i className="link-Footer fab fa-github"></i>Arifur Rahman</a></li>
 
-                     <li className="footerLink"><a className="valign-wrapper grey-text text-lighten-3 buttonLink" href="https://github.com/lcocard"><i className="link-Footer fab fa-github"></i> Lawrence Cocard</a></li>
-
                      <li className="footerLink"><a className="valign-wrapper grey-text text-lighten-3 buttonLink" href="https://github.com/majedline"><i className="link-Footer fab fa-github"></i> Majed Atwi</a></li>
                      
                      <li className="footerLink"><a className="valign-wrapper grey-text text-lighten-3 buttonLink" href="https://github.com/Garciat427"><i className="link-Footer fab fa-github"></i> Troy Garcia</a></li>
