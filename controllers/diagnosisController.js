@@ -10,7 +10,7 @@ module.exports = {
     },
     getDistinctDiagnosis: (req, res) => {
 
-        let query = `select DISTINCT d.name from Diagnoses d;`
+        let query = `select DISTINCT d.name from Diagnoses d where d.isPrimaryDiagnosis=1;`
 
         db.sequelize
             .query(query, { type: db.sequelize.QueryTypes.SELECT })
